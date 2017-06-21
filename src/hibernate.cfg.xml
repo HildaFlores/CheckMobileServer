@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+    <property name="hibernate.connection.username">transaccional</property>
+    <property name="hibernate.connection.password">oracle</property>
+    <mapping resource="Modelos/VehiculoModelo.hbm.xml"/>
+    <mapping resource="Modelos/TipoTelefono.hbm.xml"/>
+    <mapping resource="Modelos/TipoVehiculo.hbm.xml"/>
+    <mapping resource="Modelos/Vehiculo.hbm.xml"/>
+    <mapping resource="Modelos/ListaParametrosDet.hbm.xml"/>
+    <mapping resource="Modelos/Telefonos.hbm.xml"/>
+    <mapping resource="Modelos/CondicionPago.hbm.xml"/>
+    <mapping resource="Modelos/CteRepresentanteVen.hbm.xml"/>
+    <mapping resource="Modelos/InspeccionVehiculoDetalle.hbm.xml"/>
+    <mapping resource="Modelos/InspeccionVehiculo.hbm.xml"/>
+    <mapping resource="Modelos/Personal.hbm.xml"/>
+    <mapping resource="Modelos/TipoCompFiscal.hbm.xml"/>
+    <mapping resource="Modelos/TablaDgii.hbm.xml"/>
+    <mapping resource="Modelos/TipoTransaccion.hbm.xml"/>
+    <mapping resource="Modelos/EstadoRegistro.hbm.xml"/>
+    <mapping resource="Modelos/CentroCostos.hbm.xml"/>
+    <mapping resource="Modelos/Cliente.hbm.xml"/>
+    <mapping resource="Modelos/ListaParametrosEnc.hbm.xml"/>
+    <mapping resource="Modelos/PedidoEnc.hbm.xml"/>
+    <mapping resource="Modelos/ClienteDirecciones.hbm.xml"/>
+    <mapping resource="Modelos/VehiculoDocumento.hbm.xml"/>
+    <mapping resource="Modelos/VehiculoTraccion.hbm.xml"/>
+    <mapping resource="Modelos/CombustibleVehiculo.hbm.xml"/>
+    <mapping resource="Modelos/Empresa.hbm.xml"/>
+    <mapping resource="Modelos/VehiculoMarca.hbm.xml"/>
+    <mapping resource="Modelos/VehiculoEstilo.hbm.xml"/>
+    <mapping resource="Modelos/EstadoFactura.hbm.xml"/>
+    <mapping resource="Modelos/EstadoCliente.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

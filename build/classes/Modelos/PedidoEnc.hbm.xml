@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.PedidoEnc" table="PEDIDO_ENC" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.PedidoEncId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="10" />
+            </key-property>
+            <key-property name="idTipoTrans" type="string">
+                <column name="ID_TIPO_TRANS" length="10" />
+            </key-property>
+            <key-property name="idDocumento" type="string">
+                <column name="ID_DOCUMENTO" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="centroCostos" class="Modelos.CentroCostos" update="false" insert="false" fetch="select">
+            <column name="ID_CENTRO_COSTO" length="10" not-null="true" />
+            <column name="ID_EMPRESA" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="cliente" class="Modelos.Cliente" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="10" not-null="true" />
+            <column name="ID_CLIENTE" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empresa" class="Modelos.Empresa" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estadoFactura" class="Modelos.EstadoFactura" fetch="select">
+            <column name="ESTADO_DOCUMENTO" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoTransaccion" class="Modelos.TipoTransaccion" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="10" not-null="true" />
+            <column name="ID_TIPO_TRANS" length="10" not-null="true" />
+        </many-to-one>
+        <property name="nombreCliente" type="string">
+            <column name="NOMBRE_CLIENTE" length="100" />
+        </property>
+        <property name="apellidosCte" type="string">
+            <column name="APELLIDOS_CTE" length="100" />
+        </property>
+        <property name="montoBruto" type="big_decimal">
+            <column name="MONTO_BRUTO" precision="14" not-null="true" />
+        </property>
+        <property name="montoNeto" type="big_decimal">
+            <column name="MONTO_NETO" precision="14" not-null="true" />
+        </property>
+        <property name="porcDescuento" type="big_decimal">
+            <column name="PORC_DESCUENTO" precision="14" />
+        </property>
+        <property name="montoDesc" type="big_decimal">
+            <column name="MONTO_DESC" precision="14" not-null="true" />
+        </property>
+        <property name="montoImpuestos" type="big_decimal">
+            <column name="MONTO_IMPUESTOS" precision="14" not-null="true" />
+        </property>
+        <property name="montoGravado" type="big_decimal">
+            <column name="MONTO_GRAVADO" precision="14" not-null="true" />
+        </property>
+        <property name="montoExento" type="big_decimal">
+            <column name="MONTO_EXENTO" precision="14" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="idAsesor" type="string">
+            <column name="ID_ASESOR" length="10" />
+        </property>
+        <property name="notas" type="string">
+            <column name="NOTAS" length="500" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="idCondicion" type="string">
+            <column name="ID_CONDICION" length="3" not-null="true" />
+        </property>
+        <property name="tasaMoneda" type="big_decimal">
+            <column name="TASA_MONEDA" precision="12" />
+        </property>
+        <property name="idMoneda" type="string">
+            <column name="ID_MONEDA" length="5" />
+        </property>
+        <property name="referencia" type="java.lang.Long">
+            <column name="REFERENCIA" precision="10" scale="0" />
+        </property>
+        <property name="rnc" type="string">
+            <column name="RNC" length="15" />
+        </property>
+        <property name="fechaDocumento" type="date">
+            <column name="FECHA_DOCUMENTO" length="7" />
+        </property>
+        <property name="montoExonerado" type="big_decimal">
+            <column name="MONTO_EXONERADO" precision="14" />
+        </property>
+        <property name="calDesc" type="string">
+            <column name="CAL_DESC" length="10" />
+        </property>
+        <property name="tasaExoneracion" type="big_decimal">
+            <column name="TASA_EXONERACION" precision="10" />
+        </property>
+        <property name="tasaImp" type="big_decimal">
+            <column name="TASA_IMP" precision="10" />
+        </property>
+        <property name="fechaVenc" type="date">
+            <column name="FECHA_VENC" length="7" />
+        </property>
+        <property name="impresion" type="string">
+            <column name="IMPRESION" length="1" />
+        </property>
+        <property name="fechaDespacho" type="date">
+            <column name="FECHA_DESPACHO" length="7" />
+        </property>
+        <property name="idMecanico" type="string">
+            <column name="ID_MECANICO" length="10" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="montoInicial" type="big_decimal">
+            <column name="MONTO_INICIAL" precision="14" scale="4" />
+        </property>
+        <property name="noPagos" type="java.lang.Integer">
+            <column name="NO_PAGOS" precision="5" scale="0" />
+        </property>
+        <property name="efectivo" type="java.lang.Boolean">
+            <column name="EFECTIVO" precision="1" scale="0" />
+        </property>
+        <property name="cheque" type="java.lang.Boolean">
+            <column name="CHEQUE" precision="1" scale="0" />
+        </property>
+        <property name="tarjeta" type="java.lang.Boolean">
+            <column name="TARJETA" precision="1" scale="0" />
+        </property>
+        <property name="idTipoTransFac" type="string">
+            <column name="ID_TIPO_TRANS_FAC" length="10" />
+        </property>
+        <property name="idDocumentoFac" type="string">
+            <column name="ID_DOCUMENTO_FAC" length="10" />
+        </property>
+        <property name="montoCuota" type="big_decimal">
+            <column name="MONTO_CUOTA" precision="14" scale="4" />
+        </property>
+        <property name="idTipoNcf" type="string">
+            <column name="ID_TIPO_NCF" length="3" />
+        </property>
+        <property name="noTransaccion" type="string">
+            <column name="NO_TRANSACCION" length="10" />
+        </property>
+        <property name="tipoFt" type="java.lang.Boolean">
+            <column name="TIPO_FT" precision="1" scale="0" />
+        </property>
+        <property name="notaDescuento" type="string">
+            <column name="NOTA_DESCUENTO" length="20" />
+        </property>
+        <property name="noOrden" type="string">
+            <column name="NO_ORDEN" length="30" />
+        </property>
+        <property name="fechaPedido" type="date">
+            <column name="FECHA_PEDIDO" length="7" />
+        </property>
+        <property name="codTransporte" type="string">
+            <column name="COD_TRANSPORTE" length="10" />
+        </property>
+        <property name="fechaEnvio" type="date">
+            <column name="FECHA_ENVIO" length="7" />
+        </property>
+        <property name="numeroDias" type="java.lang.Short">
+            <column name="NUMERO_DIAS" precision="3" scale="0" />
+        </property>
+        <property name="fechaRealizacion" type="date">
+            <column name="FECHA_REALIZACION" length="7" />
+        </property>
+        <property name="montoAdicionales" type="big_decimal">
+            <column name="MONTO_ADICIONALES" precision="14" scale="4" />
+        </property>
+        <property name="recibirVehiculo" type="java.lang.Character">
+            <column name="RECIBIR_VEHICULO" length="1" />
+        </property>
+        <property name="tipoFactura" type="java.lang.Character">
+            <column name="TIPO_FACTURA" length="1" />
+        </property>
+        <property name="idTipoServicio" type="string">
+            <column name="ID_TIPO_SERVICIO" length="10" />
+        </property>
+        <property name="idSupervisor" type="string">
+            <column name="ID_SUPERVISOR" length="10" />
+        </property>
+        <property name="dias" type="java.lang.Short">
+            <column name="DIAS" precision="3" scale="0" />
+        </property>
+        <property name="fechaAnulacion" type="date">
+            <column name="FECHA_ANULACION" length="7" />
+        </property>
+        <property name="idPersonalFacturador" type="string">
+            <column name="ID_PERSONAL_FACTURADOR" length="10" />
+        </property>
+        <property name="devuelta" type="big_decimal">
+            <column name="DEVUELTA" precision="14" scale="4" />
+        </property>
+        <property name="autOrdenCompra" type="java.lang.Boolean">
+            <column name="AUT_ORDEN_COMPRA" precision="1" scale="0" />
+        </property>
+        <property name="recibidoPor" type="string">
+            <column name="RECIBIDO_POR" length="40" />
+        </property>
+        <property name="realizadoPor" type="string">
+            <column name="REALIZADO_POR" length="40" />
+        </property>
+        <property name="ultimoFlujoComp" type="java.lang.Character">
+            <column name="ULTIMO_FLUJO_COMP" length="1" />
+        </property>
+        <property name="numeroDiasPe" type="java.lang.Short">
+            <column name="NUMERO_DIAS_PE" precision="3" scale="0" />
+        </property>
+        <property name="fechaRealizacionPe" type="date">
+            <column name="FECHA_REALIZACION_PE" length="7" />
+        </property>
+        <property name="noPagosPe" type="java.lang.Integer">
+            <column name="NO_PAGOS_PE" precision="5" scale="0" />
+        </property>
+        <property name="montoPe" type="big_decimal">
+            <column name="MONTO_PE" precision="14" scale="4" />
+        </property>
+        <property name="valorCuota" type="big_decimal">
+            <column name="VALOR_CUOTA" precision="14" scale="4" />
+        </property>
+        <property name="fechaPrestamo" type="date">
+            <column name="FECHA_PRESTAMO" length="7" />
+        </property>
+        <property name="idOferta" type="string">
+            <column name="ID_OFERTA" length="10" />
+        </property>
+        <property name="tipoTasaMoneda" type="java.lang.Character">
+            <column name="TIPO_TASA_MONEDA" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

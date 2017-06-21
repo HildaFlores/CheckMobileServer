@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.CteRepresentanteVen" table="CTE_REPRESENTANTE_VEN" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.CteRepresentanteVenId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idRepVen" type="string">
+                <column name="ID_REP_VEN" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="nombres" type="string">
+            <column name="NOMBRES" length="50" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="APELLIDOS" length="50" />
+        </property>
+        <property name="documentoIdentidad" type="string">
+            <column name="DOCUMENTO_IDENTIDAD" length="13" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="notas" type="string">
+            <column name="NOTAS" length="500" />
+        </property>
+        <property name="ciudadProvincia" type="string">
+            <column name="CIUDAD_PROVINCIA" length="100" />
+        </property>
+        <property name="municipio" type="string">
+            <column name="MUNICIPIO" length="100" />
+        </property>
+        <property name="sector" type="string">
+            <column name="SECTOR" length="100" />
+        </property>
+        <property name="nombreEmpresa" type="string">
+            <column name="NOMBRE_EMPRESA" length="100" />
+        </property>
+        <property name="idCentroCosto" type="string">
+            <column name="ID_CENTRO_COSTO" length="10" />
+        </property>
+        <property name="porcientoComision" type="big_decimal">
+            <column name="PORCIENTO_COMISION" precision="6" scale="3" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="idUbicacion" type="string">
+            <column name="ID_UBICACION" length="25" />
+        </property>
+        <property name="calle" type="string">
+            <column name="CALLE" length="20" />
+        </property>
+        <property name="edificio" type="string">
+            <column name="EDIFICIO" length="20" />
+        </property>
+        <property name="certificadoMagna" type="java.lang.Character">
+            <column name="CERTIFICADO_MAGNA" length="1" />
+        </property>
+        <property name="certificadoDelta" type="java.lang.Character">
+            <column name="CERTIFICADO_DELTA" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

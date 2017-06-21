@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Personal" table="PERSONAL" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.PersonalId">
+            <key-property name="idPersonal" type="string">
+                <column name="ID_PERSONAL" length="10" />
+            </key-property>
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+        </composite-id>
+        <property name="nombres" type="string">
+            <column name="NOMBRES" length="50" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="APELLIDOS" length="50" not-null="true" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="FECHA_NACIMIENTO" length="7" />
+        </property>
+        <property name="lugarNac" type="string">
+            <column name="LUGAR_NAC" length="60" />
+        </property>
+        <property name="estadoCivil" type="char">
+            <column name="ESTADO_CIVIL" length="1" not-null="true" />
+        </property>
+        <property name="documentoIdentidad" type="long">
+            <column name="DOCUMENTO_IDENTIDAD" precision="13" scale="0" not-null="true" />
+        </property>
+        <property name="sexo" type="char">
+            <column name="SEXO" length="1" not-null="true" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="TELEFONO" length="50" />
+        </property>
+        <property name="direccionEmail" type="string">
+            <column name="DIRECCION_EMAIL" length="100" />
+        </property>
+        <property name="telefonoMovil" type="string">
+            <column name="TELEFONO_MOVIL" length="50" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="USUARIO" length="30" unique="true" />
+        </property>
+        <property name="idUbicacion" type="string">
+            <column name="ID_UBICACION" length="3" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="pais" type="string">
+            <column name="PAIS" length="20" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="CIUDAD" length="20" />
+        </property>
+        <property name="municipio" type="string">
+            <column name="MUNICIPIO" length="20" />
+        </property>
+        <property name="sector" type="string">
+            <column name="SECTOR" length="20" />
+        </property>
+        <property name="calle" type="string">
+            <column name="CALLE" length="20" />
+        </property>
+        <property name="edificio" type="string">
+            <column name="EDIFICIO" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

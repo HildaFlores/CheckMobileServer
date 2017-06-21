@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-schema="TRANSACCIONAL"/>
+  <table-filter match-name="INSPECCION_VEHICULO_DETALLE"/>
+  <table-filter match-name="ESTADO_CLIENTE"/>
+  <table-filter match-name="VEHICULO_ESTILO"/>
+  <table-filter match-name="LISTA_PARAMETROS_DET"/>
+  <table-filter match-name="TIPO_TRANSACCION"/>
+  <table-filter match-name="VEHICULO_MARCA"/>
+  <table-filter match-name="CTE_REPRESENTANTE_VEN"/>
+  <table-filter match-name="TIPO_VEHICULO"/>
+  <table-filter match-name="VEHICULO_TRACCION"/>
+  <table-filter match-name="TIPO_COMP_FISCAL"/>
+  <table-filter match-name="CLIENTE_DIRECCIONES"/>
+  <table-filter match-name="ESTADO_REGISTRO"/>
+  <table-filter match-name="CONDICION_PAGO"/>
+  <table-filter match-name="TELEFONOS"/>
+  <table-filter match-name="PEDIDO_ENC"/>
+  <table-filter match-name="INSPECCION_VEHICULO"/>
+  <table-filter match-name="TABLA_DGII"/>
+  <table-filter match-name="ESTADO_FACTURA"/>
+  <table-filter match-name="VEHICULO_MODELO"/>
+  <table-filter match-name="LISTA_PARAMETROS_ENC"/>
+  <table-filter match-name="PERSONAL"/>
+  <table-filter match-name="CENTRO_COSTOS"/>
+  <table-filter match-name="CLIENTE"/>
+  <table-filter match-name="COMBUSTIBLE_VEHICULO"/>
+  <table-filter match-name="EMPRESA"/>
+  <table-filter match-name="VEHICULO"/>
+  <table-filter match-name="VEHICULO_DOCUMENTO"/>
+  <table-filter match-name="TIPO_TELEFONO"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.VehiculoMarca" table="VEHICULO_MARCA" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.VehiculoMarcaId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idMarca" type="string">
+                <column name="ID_MARCA" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="100" not-null="true" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="50" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="50" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <set name="vehiculoModelos" table="VEHICULO_MODELO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="5" not-null="true" />
+                <column name="ID_MARCA" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.VehiculoModelo" />
+        </set>
+    </class>
+</hibernate-mapping>

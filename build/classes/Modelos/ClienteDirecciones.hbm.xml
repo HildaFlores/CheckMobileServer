@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.ClienteDirecciones" table="CLIENTE_DIRECCIONES" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.ClienteDireccionesId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idCliente" type="string">
+                <column name="ID_CLIENTE" length="10" />
+            </key-property>
+            <key-property name="secuencia" type="int">
+                <column name="SECUENCIA" precision="5" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="idTipoDireccion" type="java.lang.Byte">
+            <column name="ID_TIPO_DIRECCION" precision="2" scale="0" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="CIUDAD" length="30" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="100" not-null="true" />
+        </property>
+        <property name="zipCode" type="string">
+            <column name="ZIP_CODE" length="30" />
+        </property>
+        <property name="defecto" type="java.lang.Boolean">
+            <column name="DEFECTO" precision="1" scale="0" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="sector" type="string">
+            <column name="SECTOR" length="10" />
+        </property>
+        <property name="calle" type="string">
+            <column name="CALLE" length="100" />
+        </property>
+        <property name="casa" type="string">
+            <column name="CASA" length="20" />
+        </property>
+        <property name="edificio" type="string">
+            <column name="EDIFICIO" length="50" />
+        </property>
+        <property name="apartamento" type="string">
+            <column name="APARTAMENTO" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

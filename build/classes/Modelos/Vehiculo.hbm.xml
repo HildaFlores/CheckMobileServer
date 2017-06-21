@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Vehiculo" table="VEHICULO" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.VehiculoId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idVehiculo" type="string">
+                <column name="ID_VEHICULO" length="10" />
+            </key-property>
+            <key-property name="secuenciaEntrada" type="big_decimal">
+                <column name="SECUENCIA_ENTRADA" precision="22" scale="0" />
+            </key-property>
+            <key-property name="chasis" type="string">
+                <column name="CHASIS" length="17" />
+            </key-property>
+        </composite-id>
+        <property name="idTipoVehiculo" type="string">
+            <column name="ID_TIPO_VEHICULO" length="10" not-null="true" />
+        </property>
+        <property name="idMarca" type="string">
+            <column name="ID_MARCA" length="10" not-null="true" />
+        </property>
+        <property name="idModelo" type="string">
+            <column name="ID_MODELO" length="10" not-null="true" />
+        </property>
+        <property name="idEstilo" type="string">
+            <column name="ID_ESTILO" length="10" not-null="true" />
+        </property>
+        <property name="nota" type="string">
+            <column name="NOTA" length="500" />
+        </property>
+        <property name="color" type="string">
+            <column name="COLOR" length="50" />
+        </property>
+        <property name="colorInterior" type="string">
+            <column name="COLOR_INTERIOR" length="50" />
+        </property>
+        <property name="ano" type="string">
+            <column name="ANO" length="10" />
+        </property>
+        <property name="fechaCompra" type="date">
+            <column name="FECHA_COMPRA" length="7" />
+        </property>
+        <property name="filaAsiento" type="big_decimal">
+            <column name="FILA_ASIENTO" precision="22" scale="0" />
+        </property>
+        <property name="cantPuerta" type="big_decimal">
+            <column name="CANT_PUERTA" precision="22" scale="0" />
+        </property>
+        <property name="idCombustible" type="string">
+            <column name="ID_COMBUSTIBLE" length="15" />
+        </property>
+        <property name="idTraccion" type="string">
+            <column name="ID_TRACCION" length="30" />
+        </property>
+        <property name="cilindraje" type="string">
+            <column name="CILINDRAJE" length="10" />
+        </property>
+        <property name="millaje" type="big_decimal">
+            <column name="MILLAJE" precision="14" />
+        </property>
+        <property name="kilometraje" type="big_decimal">
+            <column name="KILOMETRAJE" precision="14" />
+        </property>
+        <property name="referencia" type="string">
+            <column name="REFERENCIA" length="20" />
+        </property>
+        <property name="idMoneda" type="string">
+            <column name="ID_MONEDA" length="10" />
+        </property>
+        <property name="precioCompra" type="big_decimal">
+            <column name="PRECIO_COMPRA" precision="14" scale="4" />
+        </property>
+        <property name="placa" type="string">
+            <column name="PLACA" length="15" />
+        </property>
+        <property name="llamar" type="java.lang.Boolean">
+            <column name="LLAMAR" precision="1" scale="0" />
+        </property>
+        <property name="idCliente" type="string">
+            <column name="ID_CLIENTE" length="10" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="50" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="50" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="idTransmision" type="string">
+            <column name="ID_TRANSMISION" length="30" />
+        </property>
+        <property name="origenFab" type="string">
+            <column name="ORIGEN_FAB" length="30" />
+        </property>
+        <property name="origenComp" type="string">
+            <column name="ORIGEN_COMP" length="30" />
+        </property>
+        <property name="condicionVehi" type="string">
+            <column name="CONDICION_VEHI" length="30" />
+        </property>
+        <property name="estadoVeh" type="string">
+            <column name="ESTADO_VEH" length="30" />
+        </property>
+        <property name="carga" type="big_decimal">
+            <column name="CARGA" precision="12" />
+        </property>
+        <property name="pasajeros" type="java.lang.Short">
+            <column name="PASAJEROS" precision="3" scale="0" />
+        </property>
+        <property name="cilindros" type="java.lang.Short">
+            <column name="CILINDROS" precision="3" scale="0" />
+        </property>
+        <property name="idEntGarantia" type="string">
+            <column name="ID_ENT_GARANTIA" length="10" />
+        </property>
+        <property name="kmGarantia" type="java.lang.Long">
+            <column name="KM_GARANTIA" precision="10" scale="0" />
+        </property>
+        <property name="tiempoGarantia" type="string">
+            <column name="TIEMPO_GARANTIA" length="20" />
+        </property>
+        <property name="garantia" type="java.lang.Character">
+            <column name="GARANTIA" length="1" />
+        </property>
+        <property name="notasGarantia" type="string">
+            <column name="NOTAS_GARANTIA" length="500" />
+        </property>
+        <property name="idUso" type="string">
+            <column name="ID_USO" length="10" />
+        </property>
+        <property name="noVelocidades" type="java.lang.Short">
+            <column name="NO_VELOCIDADES" precision="3" scale="0" />
+        </property>
+        <property name="vmUbicacion" type="string">
+            <column name="VM_UBICACION" length="100" />
+        </property>
+        <property name="idTipoVehDgii" type="string">
+            <column name="ID_TIPO_VEH_DGII" length="10" />
+        </property>
+        <property name="modeloSegunDgii" type="string">
+            <column name="MODELO_SEGUN_DGII" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.ListaParametrosDet" table="LISTA_PARAMETROS_DET" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.ListaParametrosDetId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="10" />
+            </key-property>
+            <key-property name="idLista" type="big_decimal">
+                <column name="ID_LISTA" precision="22" scale="0" />
+            </key-property>
+            <key-property name="valor" type="string">
+                <column name="VALOR" length="200" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="listaParametrosEnc" class="Modelos.ListaParametrosEnc" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="10" not-null="true" />
+            <column name="ID_LISTA" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="80" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" />
+        </property>
+        <property name="etiqueta" type="string">
+            <column name="ETIQUETA" length="200" />
+        </property>
+        <property name="orden" type="java.lang.Integer">
+            <column name="ORDEN" precision="5" scale="0" />
+        </property>
+        <property name="idClasificacion" type="big_decimal">
+            <column name="ID_CLASIFICACION" precision="22" scale="0" />
+        </property>
+        <property name="rutaImagen" type="string">
+            <column name="RUTA_IMAGEN" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

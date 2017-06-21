@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Cliente" table="CLIENTE" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.ClienteId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idCliente" type="string">
+                <column name="ID_CLIENTE" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="empresa" class="Modelos.Empresa" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="5" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estadoCliente" class="Modelos.EstadoCliente" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="5" not-null="true" />
+            <column name="ID_ESTADO" length="10" />
+        </many-to-one>
+        <property name="idTipoCliente" type="byte">
+            <column name="ID_TIPO_CLIENTE" precision="2" scale="0" not-null="true" />
+        </property>
+        <property name="limiteCredito" type="big_decimal">
+            <column name="LIMITE_CREDITO" precision="12" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" />
+        </property>
+        <property name="nombres" type="string">
+            <column name="NOMBRES" length="100" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="APELLIDOS" length="100" />
+        </property>
+        <property name="edad" type="java.lang.Short">
+            <column name="EDAD" precision="4" scale="0" />
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column name="SEXO" length="1" />
+        </property>
+        <property name="estadoCivil" type="java.lang.Character">
+            <column name="ESTADO_CIVIL" length="1" />
+        </property>
+        <property name="documentoIdentidad" type="string">
+            <column name="DOCUMENTO_IDENTIDAD" length="13" />
+        </property>
+        <property name="balanceCuenta" type="big_decimal">
+            <column name="BALANCE_CUENTA" precision="14" scale="4" />
+        </property>
+        <property name="rnc" type="string">
+            <column name="RNC" length="15" />
+        </property>
+        <property name="nombreEmpresa" type="string">
+            <column name="NOMBRE_EMPRESA" length="100" />
+        </property>
+        <property name="contactoPrincipal" type="string">
+            <column name="CONTACTO_PRINCIPAL" length="70" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="idCondicion" type="string">
+            <column name="ID_CONDICION" length="3" not-null="true" />
+        </property>
+        <property name="nacionalidad" type="string">
+            <column name="NACIONALIDAD" length="50" />
+        </property>
+        <property name="apodo" type="string">
+            <column name="APODO" length="30" />
+        </property>
+        <property name="ocupacion" type="string">
+            <column name="OCUPACION" length="50" />
+        </property>
+        <property name="notas" type="string">
+            <column name="NOTAS" length="500" />
+        </property>
+        <property name="pais" type="string">
+            <column name="PAIS" length="100" />
+        </property>
+        <property name="valorFiscal" type="java.lang.Boolean">
+            <column name="VALOR_FISCAL" precision="1" scale="0" />
+        </property>
+        <property name="idTipoNcf" type="string">
+            <column name="ID_TIPO_NCF" length="3" />
+        </property>
+        <property name="calDescDef" type="string">
+            <column name="CAL_DESC_DEF" length="10" />
+        </property>
+        <property name="idMonedaDef" type="string">
+            <column name="ID_MONEDA_DEF" length="5" />
+        </property>
+        <property name="idTipoIdent" type="java.lang.Boolean">
+            <column name="ID_TIPO_IDENT" precision="1" scale="0" />
+        </property>
+        <property name="idCentroCosto" type="string">
+            <column name="ID_CENTRO_COSTO" length="10" />
+        </property>
+        <property name="limiteFactPendCte" type="big_decimal">
+            <column name="LIMITE_FACT_PEND_CTE" precision="14" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="porcImpRetenido" type="big_decimal">
+            <column name="PORC_IMP_RETENIDO" precision="10" />
+        </property>
+        <property name="aplicaMora" type="java.lang.Boolean">
+            <column name="APLICA_MORA" precision="1" scale="0" />
+        </property>
+        <property name="cuentaContable" type="string">
+            <column name="CUENTA_CONTABLE" length="20" />
+        </property>
+        <property name="idCondicionVend" type="string">
+            <column name="ID_CONDICION_VEND" length="3" />
+        </property>
+        <property name="idClasificacion" type="string">
+            <column name="ID_CLASIFICACION" length="5" />
+        </property>
+        <property name="clientevip" type="java.lang.Boolean">
+            <column name="CLIENTEVIP" precision="1" scale="0" />
+        </property>
+        <property name="limteFactPendVenc" type="java.lang.Long">
+            <column name="LIMTE_FACT_PEND_VENC" precision="10" scale="0" />
+        </property>
+        <property name="descFactura" type="java.lang.Short">
+            <column name="DESC_FACTURA" precision="3" scale="0" />
+        </property>
+        <property name="limiteDescuento" type="big_decimal">
+            <column name="LIMITE_DESCUENTO" precision="14" scale="4" />
+        </property>
+        <property name="idSubTipoCte" type="string">
+            <column name="ID_SUB_TIPO_CTE" length="10" />
+        </property>
+        <property name="idEntidad" type="string">
+            <column name="ID_ENTIDAD" length="10" />
+        </property>
+        <property name="tipoEntidad" type="string">
+            <column name="TIPO_ENTIDAD" length="10" />
+        </property>
+        <property name="calificacionCte" type="string">
+            <column name="CALIFICACION_CTE" length="10" />
+        </property>
+        <property name="poseeTarjeta" type="java.lang.Character">
+            <column name="POSEE_TARJETA" length="1" />
+        </property>
+        <property name="bancoTarjeta" type="string">
+            <column name="BANCO_TARJETA" length="100" />
+        </property>
+        <property name="poseeCuenta" type="java.lang.Character">
+            <column name="POSEE_CUENTA" length="1" />
+        </property>
+        <property name="bancoCuenta" type="string">
+            <column name="BANCO_CUENTA" length="100" />
+        </property>
+        <property name="referidoPor" type="string">
+            <column name="REFERIDO_POR" length="300" />
+        </property>
+        <property name="idClienteReferido" type="string">
+            <column name="ID_CLIENTE_REFERIDO" length="10" />
+        </property>
+        <property name="limiteMontoCuota" type="big_decimal">
+            <column name="LIMITE_MONTO_CUOTA" precision="14" scale="4" />
+        </property>
+        <property name="idTipoCategoria" type="string">
+            <column name="ID_TIPO_CATEGORIA" length="10" />
+        </property>
+        <property name="limiteDiasVen" type="big_decimal">
+            <column name="LIMITE_DIAS_VEN" precision="22" scale="0" />
+        </property>
+        <property name="limitePorcInicial" type="big_decimal">
+            <column name="LIMITE_PORC_INICIAL" precision="22" scale="0" />
+        </property>
+        <property name="comisionVen" type="big_decimal">
+            <column name="COMISION_VEN" precision="6" scale="3" />
+        </property>
+        <property name="razonSocial" type="string">
+            <column name="RAZON_SOCIAL" length="100" />
+        </property>
+        <property name="noPasaporte" type="string">
+            <column name="NO_PASAPORTE" length="13" />
+        </property>
+        <set name="pedidoEncs" table="PEDIDO_ENC" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="10" not-null="true" />
+                <column name="ID_CLIENTE" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.PedidoEnc" />
+        </set>
+    </class>
+</hibernate-mapping>

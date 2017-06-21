@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.VehiculoDocumento" table="VEHICULO_DOCUMENTO" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.VehiculoDocumentoId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="10" />
+            </key-property>
+            <key-property name="idVehiculo" type="string">
+                <column name="ID_VEHICULO" length="10" />
+            </key-property>
+            <key-property name="idDocumento" type="string">
+                <column name="ID_DOCUMENTO" length="10" />
+            </key-property>
+            <key-property name="secuencia" type="big_decimal">
+                <column name="SECUENCIA" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="rutaDocumento" type="string">
+            <column name="RUTA_DOCUMENTO" length="500" />
+        </property>
+        <property name="nota" type="string">
+            <column name="NOTA" length="500" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="50" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="50" />
+        </property>
+        <property name="trOrigen" type="big_decimal">
+            <column name="TR_ORIGEN" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

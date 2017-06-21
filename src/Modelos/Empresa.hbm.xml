@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Empresa" table="EMPRESA" schema="TRANSACCIONAL" optimistic-lock="version">
+        <id name="idEmpresa" type="string">
+            <column name="ID_EMPRESA" length="5" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreEmpresa" type="string">
+            <column name="NOMBRE_EMPRESA" length="60" not-null="true" />
+        </property>
+        <property name="siglas" type="string">
+            <column name="SIGLAS" length="25" />
+        </property>
+        <property name="campo1" type="string">
+            <column name="CAMPO1" length="80" />
+        </property>
+        <property name="campo2" type="string">
+            <column name="CAMPO2" length="80" />
+        </property>
+        <property name="rnc" type="string">
+            <column name="RNC" length="20" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="eslogan" type="string">
+            <column name="ESLOGAN" length="100" />
+        </property>
+        <property name="logoEmpresa" type="binary">
+            <column name="LOGO_EMPRESA" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="colorFondo" type="string">
+            <column name="COLOR_FONDO" length="15" />
+        </property>
+        <property name="colorRecordAct" type="string">
+            <column name="COLOR_RECORD_ACT" length="15" />
+        </property>
+        <property name="colorItemAct" type="string">
+            <column name="COLOR_ITEM_ACT" length="15" />
+        </property>
+        <property name="personalizarColor" type="java.lang.Boolean">
+            <column name="PERSONALIZAR_COLOR" precision="1" scale="0" />
+        </property>
+        <property name="mesPeriodoInicial" type="java.lang.Short">
+            <column name="MES_PERIODO_INICIAL" precision="3" scale="0" />
+        </property>
+        <property name="direccionWeb" type="string">
+            <column name="DIRECCION_WEB" length="100" />
+        </property>
+        <property name="preciosConImpuestos" type="java.lang.Boolean">
+            <column name="PRECIOS_CON_IMPUESTOS" precision="1" scale="0" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="diaLabAnterior" type="date">
+            <column name="DIA_LAB_ANTERIOR" length="7" />
+        </property>
+        <property name="diaLabActual" type="date">
+            <column name="DIA_LAB_ACTUAL" length="7" />
+        </property>
+        <property name="diaLabProximo" type="date">
+            <column name="DIA_LAB_PROXIMO" length="7" />
+        </property>
+        <property name="diasLaborables" type="big_decimal">
+            <column name="DIAS_LABORABLES" precision="4" />
+        </property>
+        <property name="rutaFoto" type="string">
+            <column name="RUTA_FOTO" length="2000" />
+        </property>
+        <property name="idMetodoCosteo" type="string">
+            <column name="ID_METODO_COSTEO" length="10" />
+        </property>
+        <property name="campo3" type="string">
+            <column name="CAMPO3" length="80" />
+        </property>
+        <property name="idEstado" type="string">
+            <column name="ID_ESTADO" length="10" />
+        </property>
+        <property name="idCiudad" type="string">
+            <column name="ID_CIUDAD" length="30" />
+        </property>
+        <property name="colorBarra" type="string">
+            <column name="COLOR_BARRA" length="15" />
+        </property>
+        <property name="colorMenu" type="string">
+            <column name="COLOR_MENU" length="15" />
+        </property>
+        <property name="colorPantalla" type="string">
+            <column name="COLOR_PANTALLA" length="15" />
+        </property>
+        <property name="colorItemMenu" type="string">
+            <column name="COLOR_ITEM_MENU" length="15" />
+        </property>
+        <property name="colorItemBarra" type="string">
+            <column name="COLOR_ITEM_BARRA" length="15" />
+        </property>
+        <property name="colorItemPantalla" type="string">
+            <column name="COLOR_ITEM_PANTALLA" length="15" />
+        </property>
+        <property name="colorVentana" type="string">
+            <column name="COLOR_VENTANA" length="15" />
+        </property>
+        <property name="rutaLogo" type="string">
+            <column name="RUTA_LOGO" length="500" />
+        </property>
+        <property name="colorVentanaEmerg" type="string">
+            <column name="COLOR_VENTANA_EMERG" length="15" />
+        </property>
+        <property name="fechaUltimaFacturacion" type="date">
+            <column name="FECHA_ULTIMA_FACTURACION" length="7" />
+        </property>
+        <property name="diaFacturacion" type="java.lang.Short">
+            <column name="DIA_FACTURACION" precision="3" scale="0" />
+        </property>
+        <set name="condicionPagos" table="CONDICION_PAGO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="5" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.CondicionPago" />
+        </set>
+        <set name="pedidoEncs" table="PEDIDO_ENC" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.PedidoEnc" />
+        </set>
+        <set name="centroCostoses" table="CENTRO_COSTOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="5" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.CentroCostos" />
+        </set>
+        <set name="clientes" table="CLIENTE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="5" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.Cliente" />
+        </set>
+    </class>
+</hibernate-mapping>

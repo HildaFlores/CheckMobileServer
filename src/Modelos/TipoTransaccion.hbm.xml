@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.TipoTransaccion" table="TIPO_TRANSACCION" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.TipoTransaccionId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="10" />
+            </key-property>
+            <key-property name="idTipoTrans" type="string">
+                <column name="ID_TIPO_TRANS" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="30" not-null="true" />
+        </property>
+        <property name="estado" type="char">
+            <column name="ESTADO" length="1" not-null="true" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="secuencia" type="java.lang.Long">
+            <column name="SECUENCIA" precision="14" scale="0" />
+        </property>
+        <property name="origen" type="java.lang.Character">
+            <column name="ORIGEN" length="1" />
+        </property>
+        <property name="operadorInventario" type="java.lang.Character">
+            <column name="OPERADOR_INVENTARIO" length="1" />
+        </property>
+        <property name="afectaDoc" type="java.lang.Boolean">
+            <column name="AFECTA_DOC" precision="1" scale="0" />
+        </property>
+        <property name="contabiliza" type="java.lang.Boolean">
+            <column name="CONTABILIZA" precision="1" scale="0" />
+        </property>
+        <property name="idTipoDoc" type="string">
+            <column name="ID_TIPO_DOC" length="10" />
+        </property>
+        <property name="aplicaNcf" type="java.lang.Boolean">
+            <column name="APLICA_NCF" precision="1" scale="0" />
+        </property>
+        <property name="activo" type="java.lang.Boolean">
+            <column name="ACTIVO" precision="1" scale="0" />
+        </property>
+        <property name="activoDeprec" type="java.lang.Boolean">
+            <column name="ACTIVO_DEPREC" precision="1" scale="0" />
+        </property>
+        <property name="tipoFt" type="java.lang.Boolean">
+            <column name="TIPO_FT" precision="1" scale="0" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <set name="pedidoEncs" table="PEDIDO_ENC" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="10" not-null="true" />
+                <column name="ID_TIPO_TRANS" length="10" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.PedidoEnc" />
+        </set>
+    </class>
+</hibernate-mapping>

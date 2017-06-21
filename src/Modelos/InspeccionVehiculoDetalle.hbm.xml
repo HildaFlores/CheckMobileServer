@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.InspeccionVehiculoDetalle" table="INSPECCION_VEHICULO_DETALLE" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.InspeccionVehiculoDetalleId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="idInspeccion" type="string">
+                <column name="ID_INSPECCION" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="idVehiculo" type="string">
+            <column name="ID_VEHICULO" length="10" />
+        </property>
+        <property name="idTipoTrans" type="string">
+            <column name="ID_TIPO_TRANS" length="10" />
+        </property>
+        <property name="idElementoInspeccion" type="string">
+            <column name="ID_ELEMENTO_INSPECCION" length="10" />
+        </property>
+        <property name="grado" type="string">
+            <column name="GRADO" length="1" />
+        </property>
+        <property name="puntuacion" type="big_decimal">
+            <column name="PUNTUACION" precision="5" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="OBSERVACION" length="500" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="50" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="50" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="idRespuesta" type="string">
+            <column name="ID_RESPUESTA" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

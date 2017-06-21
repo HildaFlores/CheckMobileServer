@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Telefonos" table="TELEFONOS" schema="TRANSACCIONAL" optimistic-lock="version">
+        <composite-id name="id" class="Modelos.TelefonosId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="5" />
+            </key-property>
+            <key-property name="tipoEntidad" type="string">
+                <column name="TIPO_ENTIDAD" length="10" />
+            </key-property>
+            <key-property name="idEntidad" type="string">
+                <column name="ID_ENTIDAD" length="10" />
+            </key-property>
+            <key-property name="idTipo" type="string">
+                <column name="ID_TIPO" length="10" />
+            </key-property>
+            <key-property name="numero" type="string">
+                <column name="NUMERO" length="100" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="estadoRegistro" class="Modelos.EstadoRegistro" update="false" insert="false" fetch="select">
+            <column name="ID_EMPRESA" length="5" not-null="true" />
+            <column name="ESTADO" length="1" not-null="true" />
+        </many-to-one>
+        <property name="prioridad" type="java.lang.Byte">
+            <column name="PRIORIDAD" precision="2" scale="0" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" not-null="true" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" not-null="true" />
+        </property>
+        <property name="fechaActualizacion" type="date">
+            <column name="FECHA_ACTUALIZACION" length="7" />
+        </property>
+        <property name="usuarioActualizacion" type="string">
+            <column name="USUARIO_ACTUALIZACION" length="30" />
+        </property>
+        <property name="trOrigen" type="java.lang.Long">
+            <column name="TR_ORIGEN" precision="10" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

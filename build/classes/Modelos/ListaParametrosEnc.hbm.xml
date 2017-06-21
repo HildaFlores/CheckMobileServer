@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated mar 27, 2017 10:48:17 a.m. by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.ListaParametrosEnc" table="LISTA_PARAMETROS_ENC" schema="TRANSACCIONAL" optimistic-lock="version">
+        <comment>Contiene todas las descripciones de parametros, estados, listas, procesos, entre otros. Sera una tabla usada para colocar descripciones de codigos usuados en
+        diferentes lugares del sistema.</comment>
+        <composite-id name="id" class="Modelos.ListaParametrosEncId">
+            <key-property name="idEmpresa" type="string">
+                <column name="ID_EMPRESA" length="10" />
+            </key-property>
+            <key-property name="idClasificacion" type="big_decimal">
+                <column name="ID_CLASIFICACION" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="30">
+                <comment>Descripci'on de la lista, estado, parametro, que se haya solicitado.</comment>
+            </column>
+        </property>
+        <property name="comentario" type="string">
+            <column name="COMENTARIO" length="500" />
+        </property>
+        <property name="estado" type="java.lang.Character">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="fechaInsercion" type="date">
+            <column name="FECHA_INSERCION" length="7" />
+        </property>
+        <property name="usuarioInsercion" type="string">
+            <column name="USUARIO_INSERCION" length="30" />
+        </property>
+        <set name="listaParametrosDets" table="LISTA_PARAMETROS_DET" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_EMPRESA" length="10" not-null="true" />
+                <column name="ID_LISTA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.ListaParametrosDet" />
+        </set>
+    </class>
+</hibernate-mapping>
