@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servicios;
 
 import Datos.CheckMobileTables;
@@ -35,6 +30,7 @@ public class InspeccionDetServicios {
 
         String idInspeccion = null;
         String argumentos;
+        String formated;
 
         if (jsonObject != null) {
             idInspeccion = jsonObject.has(Constantes.JSON_KEY_INSPECCION) ? jsonObject.get(Constantes.JSON_KEY_INSPECCION).getAsString() : null;
@@ -48,19 +44,20 @@ public class InspeccionDetServicios {
                     + " AND " + CheckMobileTables.INSPECCION_VEHICULO_DETALLE.ESTADO + " = 'A' ";
         } else {
 
-            argumentos = "WHERE " + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION
-                    + " = " + CheckMobileTables.INSPECCION_VEHICULO_DETALLE.ID_INSPECCION + " AND "
-                    + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + " = " + idInspeccion + " AND "
-                    + CheckMobileTables.INSPECCION_VEHICULO_DETALLE.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
-                    + " AND " + CheckMobileTables.INSPECCION_VEHICULO_DETALLE.ESTADO + " = 'A' ";
+            argumentos = "WHERE i.id_respuesta = r.id_respuesta\n"
+                    + " and i.id_empresa = r.id_empresa and i.id_empresa = 3\n"
+                    + " and i.estado = 'A' and i.id_inspeccion = " + idInspeccion
+                    + " and l.valor = i.id_elemento_inspeccion and l.id_lista = i.id_lista_parametro\n"
+                    + " and i.id_empresa = l.id_empresa";
         }
         SqlStatement sqlStatement = new SqlStatement();
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
-        sqlStatement.setTable(CheckMobileTables.INSPECCION_VEHICULO.TABLE_NAME);
-        sqlStatement.setProjection("*");
+        sqlStatement.setTable("inspeccion_vehiculo_detalle i, respuestas r, lista_parametro_det l");
+        sqlStatement.setProjection("i.*, r.descripcion as desc_respuesta, l.DESCRIPCION as desc_elemento");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(CheckMobileTables.INSPECCION_VEHICULO_DETALLE.ID_INSPECCION);
 
+        
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO_DETALLE);
         List<InspeccionVehiculoDetalle> inspeccion = new ArrayList<>();
 
@@ -84,22 +81,22 @@ public class InspeccionDetServicios {
         }.getType();
         ArrayList<InspeccionVehiculoDetalle> inspeccion
                 = (ArrayList<InspeccionVehiculoDetalle>) JsonUtils.fromJson(jsonObject, inspeccionListType);
-          int registroInsertado;          
-          registroInsertado = UtilsDB.executeInsert(inspeccion, ObjetosDB.INSPECCION_VEHICULO_DETALLE);
-       
-       
+        int registroInsertado;
+        registroInsertado = UtilsDB.executeInsert(inspeccion, ObjetosDB.INSPECCION_VEHICULO_DETALLE);
+
         String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
 
-       /* JsonResponse respuesta = new JsonResponse<>();
-        respuesta.setRows(registroInsertado);
+        /* JsonResponse respuesta = new JsonResponse<>();
+         respuesta.setRows(registroInsertado);
 
-        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }*/
-        return codigoServidor + ", " + registroInsertado;
+         if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+         respuesta.setMessage("Listo.");
+         } else {
+         respuesta.setResponseCode(codigoServidor);
+         respuesta.setMessage("Ha ocurrido un error");
+         }*/
+        System.out.print(registroInsertado);
+        return codigoServidor;
     }
 
 }

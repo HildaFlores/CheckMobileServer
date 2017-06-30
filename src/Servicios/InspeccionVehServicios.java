@@ -35,13 +35,12 @@ public class InspeccionVehServicios {
 
         String idInspeccion = null;
         String argumentos;
-        
-        if (jsonObject != null)
-        {
-            idInspeccion = jsonObject.has(Constantes.JSON_KEY_INSPECCION) ? jsonObject.get(Constantes.JSON_KEY_INSPECCION).getAsString(): null;
-       
+
+        if (jsonObject != null) {
+            idInspeccion = jsonObject.has(Constantes.JSON_KEY_INSPECCION) ? jsonObject.get(Constantes.JSON_KEY_INSPECCION).getAsString() : null;
+
         }
-        if (idInspeccion == null) {
+        if (idInspeccion != null) {
             argumentos = "WHERE " + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION
                     + " = " + idInspeccion + " AND " + CheckMobileTables.INSPECCION_VEHICULO.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
                     + " AND " + CheckMobileTables.INSPECCION_VEHICULO.ESTADO + " = 'A' ";
@@ -55,7 +54,7 @@ public class InspeccionVehServicios {
         sqlStatement.setProjection("*");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION);
-
+        //System.out.print(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
         List<InspeccionVehiculo> inspeccion = new ArrayList<>();
         for (Object currentInspeccion : objects) {
@@ -71,10 +70,77 @@ public class InspeccionVehServicios {
         return response;
 
     }
+
+    //Queries en la tabla inspeccion_vehiculo
+    public static JsonResponse<InspeccionVehiculo> querydetallado(JsonObject jsonObject) throws SQLException {
+
+        String idInspeccion = null;
+        String argumentos;
+        SqlStatement sqlStatement = new SqlStatement();
+
+        if (jsonObject != null) {
+            idInspeccion = jsonObject.has(Constantes.JSON_KEY_INSPECCION) ? jsonObject.get(Constantes.JSON_KEY_INSPECCION).getAsString() : null;
+
+        }
+        if (idInspeccion != null) {
+            argumentos = "WHERE " + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION
+                    + " = " + idInspeccion + " AND " + CheckMobileTables.INSPECCION_VEHICULO.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
+                    + " AND " + CheckMobileTables.INSPECCION_VEHICULO.ESTADO + " = 'A' ";
+        } else {
+            argumentos = "WHERE i.id_empresa = v.id_empresa\n"
+                    + " AND v.id_vehiculo       = i.id_vehiculo\n"
+                    + " AND v.id_marca          = a.id_marca\n"
+                    + " AND v.id_modelo         = b.id_modelo\n"
+                    + " AND v.id_estilo         = c.id_estilo\n"
+                    + " AND c.id_cliente        = v.id_cliente\n"
+                    + " AND i.id_empresa        = '3'\n"
+                    + " AND i.estado_inspeccion = 'P'\n"
+                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO"
+                    + " AND i.estado = 'A'";
+        }
+
+        sqlStatement.setOperation(SqlOperation.SELECT);
+        sqlStatement.setTable("inspeccion_vehiculo i ,\n"
+                + "  cliente c,\n"
+                + "  vehiculo v,\n"
+                + "  vehiculo_marca a,\n"
+                + "  vehiculo_modelo b,\n"
+                + "  vehiculo_estilo c,\n"
+                + "  tipo_vehiculo t");
+        
+        sqlStatement.setProjection("i.*,\n"
+                + "  c.nombres\n"
+                + "  || ' '\n"
+                + "  || c.apellidos AS nombre_cliente,\n"
+                + "  a.descripcion\n"
+                + "  || ' '\n"
+                + "  || b.descripcion\n"
+                + "  || ' '\n"
+                + "  || c.descripcion AS nombre_vehiculo, \n"
+                + "  t.descripcion as tipo_veh");
+
+        sqlStatement.setArguments(argumentos);
+        sqlStatement.setOrderBy(CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION);
+        //System.out.print(sqlStatement);
+        List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
+        List<InspeccionVehiculo> inspeccion = new ArrayList<>();
+        for (Object currentInspeccion : objects) {
+            InspeccionVehiculo insp = (InspeccionVehiculo) currentInspeccion;
+            inspeccion.add(insp);
+        }
+        
+        JsonResponse<InspeccionVehiculo> response = new JsonResponse<>();
+        response.setData(inspeccion);
+        response.setRows(inspeccion.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+
     //Inserts lista de inspecciones de vehiculos 
-
     public static String insertInspeccion(String jsonObject) {
-
+        //  System.out.println(jsonObject);
         Type inspeccionListType = new TypeToken<ArrayList<InspeccionVehiculo>>() {
         }.getType();
         ArrayList<InspeccionVehiculo> inspeccion
@@ -88,12 +154,12 @@ public class InspeccionVehServicios {
         respuesta.setRows(registroInsertado);
 
         /*if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }*/
-        return codigoServidor + " , " + UtilsDB.idInspeccion;
+         respuesta.setMessage("Listo.");
+         } else {
+         respuesta.setResponseCode(codigoServidor);
+         respuesta.setMessage("Ha ocurrido un error");
+         }*/
+        return codigoServidor + "," + UtilsDB.idInspeccion;
     }
 
 }

@@ -261,6 +261,8 @@ public class CheckMobileTables {
         public static final String ID_ASESOR = "id_asesor";
         public static final String OBSERVACIONES = "observaciones";
         public static final String KILOMETRAJE = "kilometraje";
+        public static final String MOTOR = "motor";
+        public static final String ESTADO_INSPECCION = "estado_inspeccion";
     }
 
     public static final class INSPECCION_VEHICULO_DETALLE {
@@ -281,6 +283,9 @@ public class CheckMobileTables {
         public static final String USUARIO_ACT = "usuario_actualizacion";
         public static final String ESTADO = "estado";
         public static final String ID_RESPUESTA = "id_respuesta";
+        public static final String ID_LISTA_PARAMETRO = "id_lista_parametro";
+        public static final String DESC_RESPUESTA = "desc_respuesta";
+        public static final String DESC_ELEMENTO = "desc_elemento";
 
     }
 
@@ -312,7 +317,7 @@ public class CheckMobileTables {
 
         public static final String TABLE_NAME = "tipo_transaccion";
         public static final String ID_EMPRESA = "id_empresa";
-        public static final String ID_TIPO_TRANS = "ïd_tipo_trans";
+        public static final String ID_TIPO_TRANS = "id_tipo_trans";
         public static final String SECUENCIA = "secuencia";
         public static final String DESCRIPCION = "descripcion";
         public static final String FECHA_INSERCION = "fecha_insercion";
@@ -405,6 +410,7 @@ public class CheckMobileTables {
 
         public static final String TABLE_NAME = "vehiculo_documento";
         public static final String ID_EMPRESA = "id_empresa";
+        public static final String ID_VEHICULO = "id_vehiculo";
         public static final String ID_DOCUMENTO = "id_documento";
         public static final String ID_TIPO_TRANS = "id_tipo_trans";
         public static final String SECUENCIA = "secuencia";
@@ -415,6 +421,7 @@ public class CheckMobileTables {
         public static final String FECHA_ACT = "fecha_actualizacion";
         public static final String USUARIO_ACT = "usuario_actualizacion";
         public static final String ESTADO = "estado";
+        public static final String ID_LADO = "id_lado";
     }
 
     public static final class PEDIDO_PRODUCTO {

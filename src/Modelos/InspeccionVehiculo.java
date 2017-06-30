@@ -16,7 +16,7 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      private String idVehiculo;
      private String chasis;
      private String referencia;
-     private Date fechaInspeccion;
+     private String fechaInspeccion;
      private String serieGomas;
      private String nivelCombustible;
      private String idMecanico;
@@ -31,6 +31,11 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      private String idAsesor;
      private String idCliente;
      private String kilometraje;
+     private String motor;
+     private String estado_inspeccion;
+     private String nombre_vehiculo;
+     private String nombre_cliente;
+     private String tipo_veh;
 
     public InspeccionVehiculo() {
     }
@@ -68,11 +73,11 @@ public class InspeccionVehiculo  implements java.io.Serializable {
     public void setReferencia(String referencia) {
         this.referencia = referencia;
     }
-    public Date getFechaInspeccion() {
+    public String getFechaInspeccion() {
         return this.fechaInspeccion;
     }
     
-    public void setFechaInspeccion(Date fechaInspeccion) {
+    public void setFechaInspeccion(String fechaInspeccion) {
         this.fechaInspeccion = fechaInspeccion;
     }
     public String getSerieGomas() {
@@ -193,6 +198,76 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      */
     public void setKilometraje(String kilometraje) {
         this.kilometraje = kilometraje;
+    }
+
+    /**
+     * @return the motor
+     */
+    public String getMotor() {
+        return motor;
+    }
+
+    /**
+     * @param motor the motor to set
+     */
+    public void setMotor(String motor) {
+        this.motor = motor;
+    }
+
+    /**
+     * @return the estado_inspeccion
+     */
+    public String getEstado_inspeccion() {
+        return estado_inspeccion;
+    }
+
+    /**
+     * @param estado_inspeccion the estado_inspeccion to set
+     */
+    public void setEstado_inspeccion(String estado_inspeccion) {
+        this.estado_inspeccion = estado_inspeccion;
+    }
+
+    /**
+     * @return the nombre_vehiculo
+     */
+    public String getNombre_vehiculo() {
+        return nombre_vehiculo;
+    }
+
+    /**
+     * @param nombre_vehiculo the nombre_vehiculo to set
+     */
+    public void setNombre_vehiculo(String nombre_vehiculo) {
+        this.nombre_vehiculo = nombre_vehiculo;
+    }
+
+    /**
+     * @return the nombre_cliente
+     */
+    public String getNombre_cliente() {
+        return nombre_cliente;
+    }
+
+    /**
+     * @param nombre_cliente the nombre_cliente to set
+     */
+    public void setNombre_cliente(String nombre_cliente) {
+        this.nombre_cliente = nombre_cliente;
+    }
+
+    /**
+     * @return the tipo_veh
+     */
+    public String getTipo_veh() {
+        return tipo_veh;
+    }
+
+    /**
+     * @param tipo_veh the tipo_veh to set
+     */
+    public void setTipo_veh(String tipo_veh) {
+        this.tipo_veh = tipo_veh;
     }
 
 

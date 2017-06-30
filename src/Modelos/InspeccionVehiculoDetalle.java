@@ -26,6 +26,9 @@ public class InspeccionVehiculoDetalle  implements java.io.Serializable {
      private String usuarioActualizacion;
      private Long trOrigen;
      private String idRespuesta;
+     private String id_lista_parametro;
+     private String desc_respuesta;
+     private String desc__elemento;
 
     public InspeccionVehiculoDetalle() {
     }
@@ -147,6 +150,48 @@ public class InspeccionVehiculoDetalle  implements java.io.Serializable {
      */
     public void setId_empresa(String id_empresa) {
         this.id_empresa = id_empresa;
+    }
+
+    /**
+     * @return the id_lista_parametro
+     */
+    public String getId_lista_parametro() {
+        return id_lista_parametro;
+    }
+
+    /**
+     * @param id_lista_parametro the id_lista_parametro to set
+     */
+    public void setId_lista_parametro(String id_lista_parametro) {
+        this.id_lista_parametro = id_lista_parametro;
+    }
+
+    /**
+     * @return the desc_respuesta
+     */
+    public String getDesc_respuesta() {
+        return desc_respuesta;
+    }
+
+    /**
+     * @param desc_respuesta the desc_respuesta to set
+     */
+    public void setDesc_respuesta(String desc_respuesta) {
+        this.desc_respuesta = desc_respuesta;
+    }
+
+    /**
+     * @return the desc__elemento
+     */
+    public String getDesc__elemento() {
+        return desc__elemento;
+    }
+
+    /**
+     * @param desc__elemento the desc__elemento to set
+     */
+    public void setDesc__elemento(String desc__elemento) {
+        this.desc__elemento = desc__elemento;
     }
 
 

@@ -14,7 +14,6 @@ import Datos.CheckMobileTables.*;
 import Util.Constantes;
 import Util.Utils;
 import static Util.conexion.getThinConnection;
-import java.util.HashSet;
 
 //Queries//
 public class UtilsDB {
@@ -181,6 +180,7 @@ public class UtilsDB {
                     break;
 
                 }
+
             }
 
         } catch (Exception ex) {
@@ -238,10 +238,27 @@ public class UtilsDB {
                 registrosInsertados = productoPInsert(object);
                 break;
             }
+            case VEHICULO_DOCUMENTO: {
+                registrosInsertados = documentosInsert(object);
+            }
 
         }
 
         return registrosInsertados;
+    }
+
+    public static int executeUpdate(String[] object, ObjetosDB dbObject) {
+        int registrosActualizados = 0;
+
+        switch (dbObject) {
+
+            case VEHICULO: {
+                registrosActualizados = ActualizarClienteVehiculo(object);
+                break;
+            }
+        }
+
+        return registrosActualizados;
     }
 
     private static List<Object> getTipo_telefono(ResultSet resultSet) throws SQLException {
@@ -306,7 +323,7 @@ public class UtilsDB {
             cte.setApodo(resultSet.getString(CLIENTE.APODO));
             cte.setDocumentoIdentidad(resultSet.getString(CLIENTE.DOCUMENTO_IDENTIDAD));
             cte.setLimiteCredito(resultSet.getInt(CLIENTE.LIMITE_CREDITO));
-            cte.setFecha_nacimiento(resultSet.getDate(CLIENTE.FECHA_NACIMIENTO));
+            cte.setFechaNac(resultSet.getString(CLIENTE.FECHA_NACIMIENTO));
             cte.setEdad(resultSet.getString(CLIENTE.EDAD));
             cte.setSexo(resultSet.getString(CLIENTE.SEXO));
             cte.setEstadoCivil(resultSet.getString(CLIENTE.ESTADO_CIVIL));
@@ -506,6 +523,10 @@ public class UtilsDB {
             ins.setIdRespuesta(resultSet.getString(INSPECCION_VEHICULO_DETALLE.ID_RESPUESTA));
             ins.setObservacion(resultSet.getString(INSPECCION_VEHICULO_DETALLE.OBSERVACION));
             ins.setEstado(resultSet.getString(INSPECCION_VEHICULO_DETALLE.ESTADO));
+            ins.setDesc_respuesta(resultSet.getString(INSPECCION_VEHICULO_DETALLE.DESC_RESPUESTA));
+            ins.setDesc__elemento(resultSet.getString(INSPECCION_VEHICULO_DETALLE.DESC_ELEMENTO));
+            ins.setId_lista_parametro(resultSet.getString(INSPECCION_VEHICULO_DETALLE.ID_LISTA_PARAMETRO));
+            ins.setPuntuacion(resultSet.getString(INSPECCION_VEHICULO_DETALLE.PUNTUACION));
             inspeccion_list.add(ins);
         }
         return inspeccion_list;
@@ -525,7 +546,13 @@ public class UtilsDB {
             ins.setReferencia(resultSet.getString(INSPECCION_VEHICULO.REFERENCIA));
             ins.setSupervisor(resultSet.getString(INSPECCION_VEHICULO.SUPERVISOR));
             ins.setEstado(resultSet.getString(INSPECCION_VEHICULO.ESTADO));
-
+            ins.setMotor(resultSet.getString(INSPECCION_VEHICULO.MOTOR));
+            ins.setEstado_inspeccion(resultSet.getString(INSPECCION_VEHICULO.ESTADO_INSPECCION));
+            ins.setNombre_cliente(resultSet.getString("nombre_cliente"));
+            ins.setNombre_vehiculo(resultSet.getString("nombre_vehiculo"));
+            ins.setTipo_veh(resultSet.getString("tipo_veh"));
+            ins.setKilometraje(resultSet.getString(INSPECCION_VEHICULO.KILOMETRAJE));
+            ins.setFechaInspeccion(resultSet.getString(INSPECCION_VEHICULO.FECHA_INSERCION));
             inspeccion_list.add(ins);
         }
         return inspeccion_list;
@@ -536,12 +563,14 @@ public class UtilsDB {
         List<Object> doc_list = new ArrayList<>();
         while (resultSet.next()) {
             VehiculoDocumento doc = new VehiculoDocumento();
-            doc.setId(resultSet.getString(VEHICULO_DOCUMENTO.ID_DOCUMENTO));
+            doc.setIdVehiculo(resultSet.getString(VEHICULO_DOCUMENTO.ID_VEHICULO));
             doc.setId_empresa(resultSet.getString(VEHICULO_DOCUMENTO.ID_EMPRESA));
             doc.setId_tipo_trans(resultSet.getString(VEHICULO_DOCUMENTO.ID_TIPO_TRANS));
             doc.setRutaDocumento(resultSet.getString(VEHICULO_DOCUMENTO.RUTA_DOCUMENTO));
             doc.setEstado(resultSet.getString(VEHICULO_DOCUMENTO.ESTADO));
             doc.setNota(resultSet.getString(VEHICULO_DOCUMENTO.NOTA));
+            doc.setId_documento(resultSet.getString(VEHICULO_DOCUMENTO.ID_DOCUMENTO));
+            doc.setId_lado(resultSet.getString(VEHICULO_DOCUMENTO.ID_LADO));
             doc_list.add(doc);
         }
         return doc_list;
@@ -598,6 +627,7 @@ public class UtilsDB {
             TipoTransaccion trans = new TipoTransaccion();
             trans.setId(resultSet.getString(TIPO_TRANSACCION.ID_TIPO_TRANS));
             trans.setSecuencia(resultSet.getLong(TIPO_TRANSACCION.SECUENCIA));
+            trans.setEstado(resultSet.getString(TIPO_TRANSACCION.ESTADO));
             trans.setId_empresa(resultSet.getString(TIPO_TRANSACCION.ID_EMPRESA));
             tipo_list.add(trans);
         }
@@ -806,7 +836,7 @@ public class UtilsDB {
                 cst.setString(28, cte.getIdClasificacion());
                 cst.setString(29, cte.getLimiteDescuento());
                 cst.setString(30, cte.getComisionVen());
-                cst.setDate(31, Utils.getSqlDate(cte.getFecha_nacimiento()));
+                cst.setString(31,  cte.getFechaNac());
                 cst.setString(32, cte.getTelefono());
                 cst.setString(33, cte.getDireccion_email());
                 cst.setString(34, cte.getTelefono_movil());
@@ -849,7 +879,7 @@ public class UtilsDB {
                 preparedStatement.setString(2, cte.getId());
                 preparedStatement.setString(3, cte.getNombres());
                 preparedStatement.setString(4, cte.getApellidos());
-                preparedStatement.setDate(5, Utils.getSqlDate(cte.getFecha_nacimiento()));
+                preparedStatement.setString(5, cte.getFechaNac());
                 preparedStatement.setString(6, cte.getEdad());
                 preparedStatement.setString(7, cte.getSexo());
                 preparedStatement.setString(9, cte.getDocumentoIdentidad());
@@ -886,7 +916,7 @@ public class UtilsDB {
         ArrayList<InspeccionVehiculo> inspeccion = (ArrayList<InspeccionVehiculo>) object;
         try (Connection conexion = getThinConnection();
                 CallableStatement cst = conexion.prepareCall("{? = call PKG_INSPECCION.inserta_inspeccion_vehiculo(?,?,"
-                        + "?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
+                        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
 
             conexion.setAutoCommit(false);
             cst.registerOutParameter(1, Types.INTEGER);
@@ -896,7 +926,7 @@ public class UtilsDB {
                 cst.setString(4, ins.getIdVehiculo());
                 cst.setString(5, ins.getChasis());
                 cst.setString(6, ins.getReferencia());
-                cst.setDate(7, Utils.getSqlDate(ins.getFechaInspeccion()));
+                cst.setString(7, ins.getFechaInspeccion());
                 cst.setString(8, ins.getSerieGomas());
                 cst.setString(9, ins.getNivelCombustible());
                 cst.setString(10, ins.getIdMecanico());
@@ -905,13 +935,15 @@ public class UtilsDB {
                 cst.setString(13, ins.getIdCliente());
                 cst.setString(14, ins.getObservaciones());
                 cst.setString(15, ins.getKilometraje());
+                cst.setString(16, ins.getMotor());
+                cst.setString(17, "P");
 
             }
-            cst.registerOutParameter(16, Types.VARCHAR);
+            cst.registerOutParameter(18, Types.VARCHAR);
 
             cst.execute();
             conexion.commit();
-            idInspeccion = cst.getString(16);
+            idInspeccion = cst.getString(18);
             insertedRows = cst.getInt(1);
 
         } catch (Exception ex) {
@@ -942,7 +974,7 @@ public class UtilsDB {
                 preparedStatement.setString(4, ins.getIdCliente());
                 preparedStatement.setString(5, ins.getChasis());
                 preparedStatement.setString(6, ins.getReferencia());
-                preparedStatement.setDate(7, Utils.getSqlDate(ins.getFechaInspeccion()));
+                preparedStatement.setString(7, ins.getFechaInspeccion());
                 preparedStatement.setString(8, ins.getSupervisor());
                 preparedStatement.setString(9, ins.getIdAsesor());
                 preparedStatement.setString(10, ins.getObservaciones());
@@ -971,10 +1003,9 @@ public class UtilsDB {
         List<InspeccionVehiculoDetalle> inspeccion = (List<InspeccionVehiculoDetalle>) object;
         try (Connection conexion = getThinConnection();
                 CallableStatement cst = conexion.prepareCall("{call PKG_INSPECCION.inserta_inspeccion_veh_det(?,?,"
-                        + "?,?,?,?,?,?,?)}");) {
+                        + "?,?,?,?,?,?,?,?)}");) {
             conexion.setAutoCommit(false);
 
-           
             for (InspeccionVehiculoDetalle ins : inspeccion) {
                 cst.setString(1, Constantes.ID_EMPRESA);
                 cst.setString(2, ins.getId());
@@ -985,13 +1016,13 @@ public class UtilsDB {
                 cst.setString(7, ins.getPuntuacion());
                 cst.setString(8, ins.getObservacion());
                 cst.setString(9, ins.getIdRespuesta());
+                cst.setString(10, ins.getId_lista_parametro());
                 cst.addBatch();
             }
-           insertedRows = cst.executeBatch();
+            insertedRows = cst.executeBatch();
             conexion.commit();
 
             //insertedRows = cst.getInt(1);
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -1495,6 +1526,58 @@ public class UtilsDB {
         }
 
         return pais_list;
+
+    }
+
+    private static int ActualizarClienteVehiculo(String[] object) {
+        int insertedRows = 0;
+
+        String sql = "UPDATE TRANSACCIONAL.VEHICULO SET id_cliente  = ? WHERE id_vehiculo = ?";
+
+        try (Connection conexion = getThinConnection();
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql)) {
+            conexion.setAutoCommit(false);
+            preparedStatement.setString(1, object[0]);
+            preparedStatement.setString(2, object[1]);
+
+            conexion.commit();
+            insertedRows = preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+        return insertedRows;
+    }
+
+    private static int documentosInsert(Object object) {
+
+        int insertedRows[] = {};
+
+        List<VehiculoDocumento> vehiculo = (List<VehiculoDocumento>) object;
+        try (Connection conexion = getThinConnection();
+                CallableStatement cst = conexion.prepareCall("{call PKG_VEHICULOS.insert_veh_documento(?,?,"
+                        + "?,?,?,?,?)}");) {
+            conexion.setAutoCommit(false);
+
+            for (VehiculoDocumento veh : vehiculo) {
+                cst.setString(1, Constantes.ID_EMPRESA);
+                cst.setString(2, veh.getIdVehiculo());
+                cst.setString(3, veh.getId_documento());
+                cst.setString(4, veh.getRutaDocumento());
+                cst.setString(5, veh.getNota());
+                cst.setString(6, "IV");
+                cst.setString(7, veh.getId_lado());
+                cst.addBatch();
+            }
+            insertedRows = cst.executeBatch();
+            conexion.commit();
+
+            //insertedRows = cst.getInt(1);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return insertedRows.length;
 
     }
 

@@ -31,7 +31,7 @@ public class Constantes {
     public static final int LONG_DATE_FORMAT = 2;
 
     // claves Json - parametros
-    public static final String JSON_KEY_INSPECCION = "inspecciones";
+    public static final String JSON_KEY_INSPECCION = "id_inspeccion";
     public static final String JSON_KEY_CLIENT = "id_cliente";
     public static final String JSON_KEY_VEHICULO = "referencia";
     public static final String JSON_KEY_MARCA = "id_marca";
@@ -41,11 +41,11 @@ public class Constantes {
     public static final String JSON_KEY_PRODUCTO_ID = "id_producto";
     public static final String JSON_KEY_PEDIDO_ID = "id_documento";
     public static final String JSON_KEY_TIPO_TRANS = "id_tipo_trans";
+    public static final String JSON_KEY_TRANS_INSPECCION = "IV";
     public static final String JSON_KEY_ASESOR = "id_asesor";
     public static final String JSON_KEY_CLASIFICACION = "id_clasificacion";
     public static final String JSON_KEY_VALOR = "valor";
     public static final String JSON_KEY_LISTA = "id_lista";
-    //public static final String JSON_KEY_TABLE_NAME = "table_name";
     public static final String JSON_KEY_RESPONSE_CODE = "responseCode";
     public static final String JSON_USARIO_ADMIN = "usuario";
     public static final String JSON_CLAVE_USUARIO_ADMIN = "clave";

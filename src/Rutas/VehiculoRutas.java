@@ -3,6 +3,7 @@ package Rutas;
 import static Servicios.VehiculoServicios.insertVehiculo;
 import static Servicios.VehiculoServicios.queryDetVehiculo;
 import static Servicios.VehiculoServicios.queryVehiculo;
+import static Servicios.VehiculoServicios.updateClienteVehiculo;
 import Util.JsonUtils;
 import static spark.Spark.post;
 import static spark.Spark.put;
@@ -24,6 +25,8 @@ public class VehiculoRutas {
         post("/vehiculoDet", ((request, response) -> queryDetVehiculo(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
 
         put("/vehiculo", ((request, response) -> insertVehiculo(request.body())), JsonUtils::toJson);
+        
+        post("/cteVehiculo", ((request, response ) -> updateClienteVehiculo(request.body())), JsonUtils::toJson);
     }
 
 }

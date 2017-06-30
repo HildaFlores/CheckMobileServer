@@ -19,10 +19,12 @@ import static Rutas.RepVentasRutas.setRepVentasRutas;
 import static Rutas.TablaDgiiRutas.setTablaDgiiRutas;
 import static Rutas.TipoComprobanteRutas.setTipoComprobanteRutas;
 import static Rutas.TipoTelefonoRutas.setTipoTelefonoRutas;
+import static Rutas.TipoTransaccionRutas.setTipoTransRutas;
 import static Rutas.TipoVehiculoRutas.setTipoVehiculoRutas;
 import static Rutas.TraccionRutas.setTraccionRutas;
 import static Rutas.UsuarioAdminRutas.setUsuarioAdminRutas;
 import static Rutas.VehiculoRutas.setVehiculoRutas;
+import static Rutas.vehiculoDocumentoRutas.setVehiculoDocRutas;
 import Util.Utils;
 import Util.*;
 import com.google.gson.JsonObject;
@@ -132,6 +134,8 @@ public class CheckMobile {
         setTipoTelefonoRutas(); // 
         setListaParametros(); //
         setPais(); //
+        setTipoTransRutas(); //
+        setVehiculoDocRutas();//
 
     }
 }

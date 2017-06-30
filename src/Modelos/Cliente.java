@@ -72,7 +72,7 @@ public class Cliente  implements java.io.Serializable {
      private String comisionVen;
      private String razonSocial;
      private String noPasaporte;
-     private Date fecha_nacimiento;
+     private String fechaNac;
      private String descripcion_condicion;
      private String telefono;
      private String telefono_movil;
@@ -535,17 +535,17 @@ public class Cliente  implements java.io.Serializable {
     }
 
     /**
-     * @return the fecha_nacimiento
+     * @return the fechaNac
      */
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public String getFechaNac() {
+        return fechaNac;
     }
 
     /**
-     * @param fecha_nacimiento the fecha_nacimiento to set
+     * @param fechaNac the fechaNac to set
      */
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNac(String fechaNac) {
+        this.fechaNac = fechaNac;
     }
 
     /**

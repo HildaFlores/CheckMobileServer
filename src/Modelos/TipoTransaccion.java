@@ -15,7 +15,7 @@ public class TipoTransaccion  implements java.io.Serializable {
      private String id;
      private String id_empresa;
      private String descripcion;
-     private char estado;
+     private String estado;
      private Date fechaInsercion;
      private String usuarioInsercion;
      private Date fechaActualizacion;
@@ -27,44 +27,16 @@ public class TipoTransaccion  implements java.io.Serializable {
      private Boolean contabiliza;
      private String idTipoDoc;
      private Boolean aplicaNcf;
-     private Boolean activo;
+     private String activo;
      private Boolean activoDeprec;
      private Boolean tipoFt;
      private Long trOrigen;
-     private Set pedidoEncs = new HashSet(0);
+    
 
     public TipoTransaccion() {
     }
 
-	
-    public TipoTransaccion(String id, String descripcion, char estado, Date fechaInsercion) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.estado = estado;
-        this.fechaInsercion = fechaInsercion;
-    }
-    public TipoTransaccion(String id, String descripcion, char estado, Date fechaInsercion, String usuarioInsercion, Date fechaActualizacion, String usuarioActualizacion, Long secuencia, Character origen, Character operadorInventario, Boolean afectaDoc, Boolean contabiliza, String idTipoDoc, Boolean aplicaNcf, Boolean activo, Boolean activoDeprec, Boolean tipoFt, Long trOrigen, Set pedidoEncs) {
-       this.id = id;
-       this.descripcion = descripcion;
-       this.estado = estado;
-       this.fechaInsercion = fechaInsercion;
-       this.usuarioInsercion = usuarioInsercion;
-       this.fechaActualizacion = fechaActualizacion;
-       this.usuarioActualizacion = usuarioActualizacion;
-       this.secuencia = secuencia;
-       this.origen = origen;
-       this.operadorInventario = operadorInventario;
-       this.afectaDoc = afectaDoc;
-       this.contabiliza = contabiliza;
-       this.idTipoDoc = idTipoDoc;
-       this.aplicaNcf = aplicaNcf;
-       this.activo = activo;
-       this.activoDeprec = activoDeprec;
-       this.tipoFt = tipoFt;
-       this.trOrigen = trOrigen;
-       this.pedidoEncs = pedidoEncs;
-    }
-   
+
     public String getId() {
         return this.id;
     }
@@ -79,11 +51,11 @@ public class TipoTransaccion  implements java.io.Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    public char getEstado() {
+    public String getEstado() {
         return this.estado;
     }
     
-    public void setEstado(char estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
     public Date getFechaInsercion() {
@@ -163,11 +135,11 @@ public class TipoTransaccion  implements java.io.Serializable {
     public void setAplicaNcf(Boolean aplicaNcf) {
         this.aplicaNcf = aplicaNcf;
     }
-    public Boolean getActivo() {
+    public String getActivo() {
         return this.activo;
     }
     
-    public void setActivo(Boolean activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
     public Boolean getActivoDeprec() {
@@ -191,14 +163,7 @@ public class TipoTransaccion  implements java.io.Serializable {
     public void setTrOrigen(Long trOrigen) {
         this.trOrigen = trOrigen;
     }
-    public Set getPedidoEncs() {
-        return this.pedidoEncs;
-    }
-    
-    public void setPedidoEncs(Set pedidoEncs) {
-        this.pedidoEncs = pedidoEncs;
-    }
-
+  
     /**
      * @return the id_empresa
      */

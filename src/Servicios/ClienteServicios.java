@@ -28,8 +28,10 @@ public class ClienteServicios {
         String argumentos = null;
         String idFormated, docIdentidadFormated;
         
+        
         SqlStatement sqlStatement = new SqlStatement();
         if (jsonObject != null) {
+           // System.out.print(jsonObject.toString());
             idCliente = jsonObject.has(Constantes.JSON_KEY_CLIENT) ? jsonObject.get(Constantes.JSON_KEY_CLIENT).getAsString() : null;
             documentoIdentidad = jsonObject.has("documento_identidad") ? jsonObject.get("documento_identidad").getAsString() : null;
            }

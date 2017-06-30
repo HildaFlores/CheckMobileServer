@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Servicios;
 
 import Datos.CheckMobileTables;
@@ -130,7 +126,7 @@ public class ListaParametrosServicios {
       
           p = idLista.split(",");
           parametroFormated = "'" + p[0] + "', '" + p[1] + "','" + p[2] + "','" + p[3] + "'" + ",'" + p[4] + "'";
-          System.out.println(parametroFormated);
+         // System.out.println(parametroFormated);
          
         argumentos = " WHERE " + CheckMobileTables.LISTA_PARAMETROS_DET.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
                 + " AND " + CheckMobileTables.LISTA_PARAMETROS_DET.ESTADO + " = " + "'A'" + " AND "

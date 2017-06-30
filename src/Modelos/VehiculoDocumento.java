@@ -11,10 +11,11 @@ import java.util.Date;
 public class VehiculoDocumento  implements java.io.Serializable {
 
 
-     private String id;
+     private String id_vehiculo;
      private String id_empresa;
      private String id_tipo_trans;
      private String rutaDocumento;
+     private String id_documento;
      private String nota;
      private String estado;
      private Date fechaInsercion;
@@ -22,32 +23,18 @@ public class VehiculoDocumento  implements java.io.Serializable {
      private Date fechaActualizacion;
      private String usuarioActualizacion;
      private BigDecimal trOrigen;
+     private String id_lado;
 
     public VehiculoDocumento() {
     }
 
-	
-    public VehiculoDocumento(String id) {
-        this.id = id;
-    }
-    public VehiculoDocumento(String id, String rutaDocumento, String nota, String estado, Date fechaInsercion, String usuarioInsercion, Date fechaActualizacion, String usuarioActualizacion, BigDecimal trOrigen) {
-       this.id = id;
-       this.rutaDocumento = rutaDocumento;
-       this.nota = nota;
-       this.estado = estado;
-       this.fechaInsercion = fechaInsercion;
-       this.usuarioInsercion = usuarioInsercion;
-       this.fechaActualizacion = fechaActualizacion;
-       this.usuarioActualizacion = usuarioActualizacion;
-       this.trOrigen = trOrigen;
-    }
    
-    public String getId() {
-        return this.id;
+    public String getIdVehiculo() {
+        return this.id_vehiculo;
     }
     
-    public void setId(String id) {
-        this.id = id;
+    public void setIdVehiculo(String id) {
+        this.id_vehiculo = id;
     }
     public String getRutaDocumento() {
         return this.rutaDocumento;
@@ -132,6 +119,34 @@ public class VehiculoDocumento  implements java.io.Serializable {
      */
     public void setId_tipo_trans(String id_tipo_trans) {
         this.id_tipo_trans = id_tipo_trans;
+    }
+
+    /**
+     * @return the id_documento
+     */
+    public String getId_documento() {
+        return id_documento;
+    }
+
+    /**
+     * @param id_documento the id_documento to set
+     */
+    public void setId_documento(String id_documento) {
+        this.id_documento = id_documento;
+    }
+
+    /**
+     * @return the id_lado
+     */
+    public String getId_lado() {
+        return id_lado;
+    }
+
+    /**
+     * @param id_lado the id_lado to set
+     */
+    public void setId_lado(String id_lado) {
+        this.id_lado = id_lado;
     }
 
 

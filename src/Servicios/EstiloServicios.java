@@ -63,7 +63,7 @@ public class EstiloServicios {
         //  System.out.println(sqlStatement);
         List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.VEHICULO_ESTILO);
 
-        List<VehiculoEstilo> veh = new ArrayList<>();
+        //List<VehiculoEstilo> veh = new ArrayList<>();
         /*  for (Object currentEstilo : objetos) {
          VehiculoEstilo cte = (VehiculoEstilo) currentEstilo;
          veh.add(cte);
