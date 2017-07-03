@@ -17,6 +17,6 @@ public class ModeloRutas {
 
     public static void setModeloRutas() {
         post("/modelo", ((request, response) -> queryModelo(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
-        put("/modelo", ((request, response) -> insertModelo(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
+        put("/modelo", ((request, response) -> insertModelo(request.body())), JsonUtils::toJson);
     }
 }

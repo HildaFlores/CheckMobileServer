@@ -18,7 +18,7 @@ import static Util.conexion.getThinConnection;
 //Queries//
 public class UtilsDB {
 
-    public static String idVehiculo, idCliente, idInspeccion;
+    public static String idVehiculo, idCliente, idInspeccion, idMarca, idModelo, idEstilo;
     public static int contador = 0;
 
     public static List<Object> executeQuery(SqlStatement sql, ObjetosDB dbObject) throws SQLException {
@@ -219,14 +219,17 @@ public class UtilsDB {
                 break;
             }
             case VEHICULO_MARCA: {
-                registrosInsertados = vehMarcaInsert(object);
+                registrosInsertados = llamarFuncionInsertMarca(object);
+                //vehMarcaInsert(object);
                 break;
             }
             case VEHICULO_MODELO:
-                registrosInsertados = vehModeloInsert(object);
+                registrosInsertados = llamarFuncionInsertModelo(object);
+                //vehModeloInsert(object);
                 break;
             case VEHICULO_ESTILO: {
-                registrosInsertados = vehEstiloInsert(object);
+                registrosInsertados = llamarFuncionInsertEstilo(object);
+//vehEstiloInsert(object);
                 break;
             }
             case VEHICULO: {
@@ -391,7 +394,6 @@ public class UtilsDB {
         List<Object> Combustible_list = new ArrayList<>();
         while (resultSet.next()) {
             CombustibleVehiculo com = new CombustibleVehiculo();
-
             com.setIdCombustible(resultSet.getString(COMBUSTIBLE_VEHICULO.ID_COMBUSTIBLE));
             com.setDescripcion(resultSet.getString(COMBUSTIBLE_VEHICULO.DESCRIPCION));
             com.setEstado(resultSet.getString(COMBUSTIBLE_VEHICULO.ESTADO));
@@ -553,6 +555,7 @@ public class UtilsDB {
             ins.setTipo_veh(resultSet.getString("tipo_veh"));
             ins.setKilometraje(resultSet.getString(INSPECCION_VEHICULO.KILOMETRAJE));
             ins.setFechaInspeccion(resultSet.getString(INSPECCION_VEHICULO.FECHA_INSERCION));
+            ins.setSerieGomas(resultSet.getString(INSPECCION_VEHICULO.SERIE_GOMAS));
             inspeccion_list.add(ins);
         }
         return inspeccion_list;
@@ -836,7 +839,7 @@ public class UtilsDB {
                 cst.setString(28, cte.getIdClasificacion());
                 cst.setString(29, cte.getLimiteDescuento());
                 cst.setString(30, cte.getComisionVen());
-                cst.setString(31,  cte.getFechaNac());
+                cst.setString(31, cte.getFechaNac());
                 cst.setString(32, cte.getTelefono());
                 cst.setString(33, cte.getDireccion_email());
                 cst.setString(34, cte.getTelefono_movil());
@@ -1163,6 +1166,36 @@ public class UtilsDB {
         return insertedRows.length;
     }
 
+    private static int llamarFuncionInsertMarca(Object object) {
+        int insertedRows = 0;
+
+        ArrayList<VehiculoMarca> marca = (ArrayList<VehiculoMarca>) object;
+        try (Connection conexion = getThinConnection();
+                CallableStatement cst = conexion.prepareCall("{? = call PKG_VEHICULOS.insert_veh_marca(?,?,"
+                        + "?,?)}");) {
+            conexion.setAutoCommit(false);
+            cst.registerOutParameter(1, Types.INTEGER);
+            for (VehiculoMarca mar : marca) {
+                cst.setString(2, Constantes.ID_EMPRESA);
+                cst.setString(3, "MARC");
+                cst.setString(4, mar.getDescripcion());
+
+            }
+
+            cst.registerOutParameter(5, Types.VARCHAR);
+
+            conexion.commit();
+
+            cst.execute();
+            idMarca = cst.getString(5);
+            insertedRows = cst.getInt(1);
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+        return insertedRows;
+    }
+
     private static int vehMarcaInsert(Object object) {
         int[] insertedRows = {};
 
@@ -1193,6 +1226,36 @@ public class UtilsDB {
         }
         return insertedRows.length;
 
+    }
+
+    private static int llamarFuncionInsertModelo(Object object) {
+        int insertedRows = 0;
+
+        ArrayList<VehiculoModelo> modelo = (ArrayList<VehiculoModelo>) object;
+        try (Connection conexion = getThinConnection();
+                CallableStatement cst = conexion.prepareCall("{? = call PKG_VEHICULOS.insert_veh_modelo(?,?,"
+                        + "?,?,?)}");) {
+            conexion.setAutoCommit(false);
+            cst.registerOutParameter(1, Types.INTEGER);
+            for (VehiculoModelo mode : modelo) {
+                cst.setString(2, Constantes.ID_EMPRESA);
+                cst.setString(3, mode.getIdMarca());
+                cst.setString(4, "MODE");
+                cst.setString(5, mode.getDescripcion());
+
+            }
+           
+            cst.registerOutParameter(6, Types.VARCHAR);
+            conexion.commit();
+            cst.execute();
+    
+            idModelo = cst.getString(6);
+            insertedRows = cst.getInt(1); 
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+        return insertedRows;
     }
 
     private static int vehModeloInsert(Object object) {
@@ -1370,6 +1433,37 @@ public class UtilsDB {
         }
         return insertedRows.length;
 
+    }
+
+    private static int llamarFuncionInsertEstilo(Object object) {
+        int insertedRows = 0;
+
+        ArrayList<VehiculoEstilo> estilo = (ArrayList<VehiculoEstilo>) object;
+        try (Connection conexion = getThinConnection();
+                CallableStatement cst = conexion.prepareCall("{? = call PKG_VEHICULOS.insert_veh_estilo(?,?,"
+                        + "?,?,?)}");) {
+            conexion.setAutoCommit(false);
+            cst.registerOutParameter(1, Types.INTEGER);
+            for (VehiculoEstilo est : estilo) {
+                cst.setString(2, Constantes.ID_EMPRESA);
+                cst.setString(3, "ESTI");
+                cst.setString(4, est.getId_modelo());
+                cst.setString(5, est.getDescripcion());
+
+            }
+
+            cst.registerOutParameter(6, Types.VARCHAR);
+
+            conexion.commit();
+
+            cst.execute();
+            idEstilo = cst.getString(6);
+            insertedRows = cst.getInt(1);
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+        return insertedRows;
     }
 
     private static int vehEstiloInsert(Object object) {

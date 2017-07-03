@@ -60,23 +60,23 @@ public class MarcaServicios {
      * @param jsonObject The request body content.
      * @return The numbers of rows inserted.
      */
-    public static JsonResponse insertMarca(String jsonObject) {
+    public static String insertMarca(String jsonObject) {
         Type type = new TypeToken<ArrayList<VehiculoMarca>>() {
         }.getType();
         ArrayList<VehiculoMarca> veh = (ArrayList<VehiculoMarca>) JsonUtils.fromJson(jsonObject, type);
         int registroInsertado = UtilsDB.executeInsert(veh, ObjetosDB.VEHICULO_MARCA);
-        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_OK;
-        JsonResponse respuesta = new JsonResponse<>();
-        respuesta.setRows(registroInsertado);
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
+//        JsonResponse respuesta = new JsonResponse<>();
+//        respuesta.setRows(registroInsertado);
+//
+//        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+//            respuesta.setMessage("Listo.");
+//        } else {
+//            respuesta.setResponseCode(codigoServidor);
+//            respuesta.setMessage("Ha ocurrido un error");
+//        }
 
-        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }
-
-        return respuesta;
+        return codigoServidor + "," + UtilsDB.idMarca;
     }
 
 }

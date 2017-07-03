@@ -55,10 +55,8 @@ public class CheckMobile {
         if (setConnection()) {
             Utils.log("Setting up API filters...");
 
-           //setBefore();
+            //setBefore();
             setAfter();
-             
-           
 
             Utils.log("Setting up API routes...");
             setRoutes();
@@ -77,9 +75,6 @@ public class CheckMobile {
         return conexion.getConnection() != null;
     }
 
-    /**
-     * Sets the before filter.
-     */
     private static void setBefore() {
         before((request, response) -> {
             boolean authenticated = authenticateRequest(request);
@@ -98,7 +93,7 @@ public class CheckMobile {
         String uniqueId = "ANDROIDJAVAORACLE";
         String value = "";
         JsonObject jsonObject = JsonUtils.fromJson(request.body());
-        String encryptedValue = jsonObject.has(Constantes.JSON_KEY_API_KEY) ? jsonObject.get(Constantes.JSON_KEY_API_KEY).getAsString(): null;
+        String encryptedValue = jsonObject.has(Constantes.JSON_KEY_API_KEY) ? jsonObject.get(Constantes.JSON_KEY_API_KEY).getAsString() : null;
 
         try {
             value = Encryption.decrypt(encryptedValue);
@@ -110,7 +105,7 @@ public class CheckMobile {
 
     //cargando las rutas
     private static void setRoutes() {
-        
+
         setClienteRutas(); //
         setEstiloRutas(); //
         setInspeccionRuta(); //
@@ -122,8 +117,8 @@ public class CheckMobile {
         setProductoPrecioRutas(); //
         setProductoServiciosRutas();  //
         setRepVentasRutas(); //
-        setTablaDgiiRutas(); /**/
-        setUsuarioAdminRutas(); /**/
+        setTablaDgiiRutas(); //
+        setUsuarioAdminRutas(); //
         setVehiculoRutas(); //
         setTraccionRutas(); //
         setCombustibleRutas(); //
@@ -138,4 +133,5 @@ public class CheckMobile {
         setVehiculoDocRutas();//
 
     }
+
 }

@@ -24,7 +24,7 @@ public class EstiloRutas {
         
         post("/estilos", (request, response) -> queryEstilo(JsonUtils.fromJson(request.body())), JsonUtils::toJson);
        
-        put("/estilos", ((request, response) -> insertEstilo(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
+        put("/estilos", ((request, response) -> insertEstilo(request.body())), JsonUtils::toJson);
     }
 
 }

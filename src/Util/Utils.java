@@ -47,6 +47,26 @@ public class Utils {
 
         return isSetUp;
     }
+    
+      public static boolean setUpConfigParameters(String usuario, String clave) {
+        boolean isSetUp = false;
+
+        try {
+            ResourceBundle rs = ResourceBundle.getBundle(ConfigPropiedades.FILE_NAME);
+            Constantes.USUARIO_DB = usuario;
+            Constantes.CLAVE_DB = clave;
+            Constantes.IP_SERVIDOR = rs.getString(ConfigPropiedades.SERVER_IP);
+            Constantes.PUERTO_DB = rs.getString(ConfigPropiedades.DATABASE_PORT);
+            Constantes.SERVICIO_DB = rs.getString(ConfigPropiedades.DATABASE_SERVICE);
+
+            isSetUp = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return isSetUp;
+    }
+
 
     /**
      * Logs a message into the console.

@@ -263,6 +263,7 @@ public class CheckMobileTables {
         public static final String KILOMETRAJE = "kilometraje";
         public static final String MOTOR = "motor";
         public static final String ESTADO_INSPECCION = "estado_inspeccion";
+        public static final String SERIE_GOMAS = "serie_gomas";
     }
 
     public static final class INSPECCION_VEHICULO_DETALLE {

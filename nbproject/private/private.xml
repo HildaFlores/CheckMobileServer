@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/ClienteServicios.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/InspeccionVehServicios.java</file>
+            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Rutas/UsuarioAdminRutas.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Datos/UtilsDB.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Modelos/Cliente.java</file>
+            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/UsuarioServicios.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Datos/CheckMobileTables.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Modelos/InspeccionVehiculo.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/InspeccionDetServicios.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Rutas/InspeccionDetRutas.java</file>
+            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/checkmobile/CheckMobile.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Util/Constantes.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Util/Utils.java</file>
         </group>

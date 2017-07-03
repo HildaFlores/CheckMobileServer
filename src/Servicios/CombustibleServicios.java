@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class CombustibleServicios {
     
-     //Queries de la tabla vehiculo_traccion
+     //Queries de la tabla vehiculo_combustible
     public static JsonResponse<CombustibleVehiculo> queryCombustible(JsonObject jsonObject) throws SQLException {
        
         String argumentos;       
@@ -55,11 +55,4 @@ public class CombustibleServicios {
 
     }
 
-    /**
-     * Inserts lista de estilos
-     *
-     * @param jsonObject The request body content.
-     * @return The numbers of rows inserted.
-     */
-  
 }

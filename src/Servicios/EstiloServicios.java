@@ -87,23 +87,23 @@ public class EstiloServicios {
      * @param jsonObject The request body content.
      * @return The numbers of rows inserted.
      */
-    public static JsonResponse insertEstilo(JsonObject jsonObject) {
+    public static String insertEstilo(String jsonObject) {
         Type type = new TypeToken<ArrayList<VehiculoEstilo>>() {
         }.getType();
-        ArrayList<VehiculoEstilo> veh = (ArrayList<VehiculoEstilo>) JsonUtils.fromJson(jsonObject.get("data").toString(), type);
+        ArrayList<VehiculoEstilo> veh = (ArrayList<VehiculoEstilo>) JsonUtils.fromJson(jsonObject, type);
         int registroInsertado = UtilsDB.executeInsert(veh, ObjetosDB.VEHICULO_ESTILO);
-        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_OK;
-        JsonResponse respuesta = new JsonResponse<>();
-        respuesta.setRows(registroInsertado);
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
+//        JsonResponse respuesta = new JsonResponse<>();
+//        respuesta.setRows(registroInsertado);
+//
+//        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+//            respuesta.setMessage("Listo.");
+//        } else {
+//            // respuesta.setResponseCode(codigoServidor);
+//            respuesta.setMessage("Ha ocurrido un error");
+//        }
 
-        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            // respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }
-
-        return respuesta;
+        return codigoServidor + "," + UtilsDB.idEstilo;
     }
 
 }
