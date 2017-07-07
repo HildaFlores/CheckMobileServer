@@ -16,7 +16,7 @@ import static spark.Spark.put;
 public class PedidoEncRutas {
     public static void setPedidoEncRutas() {
         post("/pedidoEnc", ((request, response) -> queryPedidoEnc(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
-        put("/pedidoEnc", ((request, response) -> insertPedidoEnc(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
+        put("/pedidoEnc", ((request, response) -> insertPedidoEnc(request.body())), JsonUtils::toJson);
     }
 
    

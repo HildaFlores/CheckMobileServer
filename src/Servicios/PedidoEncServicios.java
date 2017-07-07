@@ -44,12 +44,14 @@ public class PedidoEncServicios {
 
         if (idDocumento == null && tipoTrans == null) {
             argumentos = " WHERE " + CheckMobileTables.PEDIDO_ENC.ESTADO + " = 'A' " + " AND "
-                    + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA;
+                    + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA +
+                    " AND " + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO  + " = 'V'";
         } else {
             argumentos = " WHERE " + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + " = " + idDocumento + " AND "
                     + CheckMobileTables.PEDIDO_ENC.ESTADO + " = 'A' " + " AND "
                     + CheckMobileTables.PEDIDO_ENC.ID_TIPO_TRANS + " = " + tipoTrans + " AND "
-                    + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA;
+                    + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
+                    + " AND " + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO  + " = 'V'";;
 
         }
 
@@ -77,26 +79,26 @@ public class PedidoEncServicios {
     }
 
     //Inserts de lista de pedido
-    public static JsonResponse insertPedidoEnc(JsonObject jsonObject) {
+    public static String insertPedidoEnc(String jsonObject) {
 
         Type pedidoListType = new TypeToken<ArrayList<PedidoEnc>>() {
         }.getType();
         ArrayList<PedidoEnc> pedido
-                = (ArrayList<PedidoEnc>) JsonUtils.fromJson(jsonObject.get("data").toString(), pedidoListType);
+                = (ArrayList<PedidoEnc>) JsonUtils.fromJson(jsonObject, pedidoListType);
 
         int registroInsertado = UtilsDB.executeInsert(pedido, ObjetosDB.PEDIDO_ENC);
 
-        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_OK;
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
 
-        JsonResponse respuesta = new JsonResponse<>();
-        respuesta.setRows(registroInsertado);
-
-        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }
-        return respuesta;
+//        JsonResponse respuesta = new JsonResponse<>();
+//        respuesta.setRows(registroInsertado);
+//
+//        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+//            respuesta.setMessage("Listo.");
+//        } else {
+//            respuesta.setResponseCode(codigoServidor);
+//            respuesta.setMessage("Ha ocurrido un error");
+//        }
+        return codigoServidor + "," + UtilsDB.idDocumento;
     }
 }

@@ -79,24 +79,24 @@ public class PedidoProServicios {
 
     }
 
-    public static JsonResponse insertPedidoDet(JsonObject jsonObject) {
+    public static String insertPedidoDet(String jsonObject) {
 
         Type pedidoListType = new TypeToken<ArrayList<PedidoProducto>>() {
         }.getType();
         ArrayList<PedidoProducto> pedido
-                = (ArrayList<PedidoProducto>) JsonUtils.fromJson(jsonObject.get("data").toString(), pedidoListType);
+                = (ArrayList<PedidoProducto>) JsonUtils.fromJson(jsonObject, pedidoListType);
 
         int registroInsertado = UtilsDB.executeInsert(pedido, ObjetosDB.PEDIDO_PRODUCTO);
-        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_OK;
-        JsonResponse respuesta = new JsonResponse<>();
-        respuesta.setRows(registroInsertado);
-
-        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo.");
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }
-        return respuesta;
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
+//        JsonResponse respuesta = new JsonResponse<>();
+//        respuesta.setRows(registroInsertado);
+//
+//        if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+//            respuesta.setMessage("Listo.");
+//        } else {
+//            respuesta.setResponseCode(codigoServidor);
+//            respuesta.setMessage("Ha ocurrido un error");
+//        }
+        return codigoServidor + "," + registroInsertado;
     }
 }

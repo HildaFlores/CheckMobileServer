@@ -37,7 +37,7 @@ public class Constantes {
     public static final String JSON_KEY_MARCA = "id_marca";
     public static final String JSON_KEY_MODELO = "id_modelo";
     public static final String JSON_KEY_ESTILO = "id_estilo";
-    public static final String JSON_KEY_MECANICO = "id_rep_ven";
+    public static final String JSON_KEY_MECANICO = "mecanico";
     public static final String JSON_KEY_PRODUCTO_ID = "id_producto";
     public static final String JSON_KEY_PEDIDO_ID = "id_documento";
     public static final String JSON_KEY_TIPO_TRANS = "id_tipo_trans";

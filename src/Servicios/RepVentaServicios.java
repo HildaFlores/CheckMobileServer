@@ -23,25 +23,26 @@ public class RepVentaServicios {
     }
 
     public static JsonResponse<CteRepresentanteVen> queryRepresentante(JsonObject jsonObject) throws SQLException {
-        String idRep = null;
+        String tipo = null;
         String argument;
+       
         SqlStatement sqlStatement = new SqlStatement();
 
         if (jsonObject != null) {
-            idRep = jsonObject.has(Constantes.JSON_KEY_MECANICO) ? jsonObject.get(Constantes.JSON_KEY_MECANICO).getAsString() : null;
+            tipo = jsonObject.has(Constantes.JSON_KEY_MECANICO) ? jsonObject.get(Constantes.JSON_KEY_MECANICO).getAsString() : null;
 
         }
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
         sqlStatement.setProjection("*");
         sqlStatement.setTable(CheckMobileTables.CTE_REPRESENTANTE_VEN.TABLE_NAME);
 
-        if (idRep == null) {
+        if (tipo == null) {
             argument = "WHERE " + CheckMobileTables.CTE_REPRESENTANTE_VEN.ESTADO + " = 'A' " + " AND "
                     + CheckMobileTables.CTE_REPRESENTANTE_VEN.ID_EMPRESA + " = " + Constantes.ID_EMPRESA;
         } else {
             argument = "WHERE " + CheckMobileTables.CTE_REPRESENTANTE_VEN.ESTADO + " = 'A' " + " AND "
                     + CheckMobileTables.CTE_REPRESENTANTE_VEN.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " AND "
-                    + CheckMobileTables.CTE_REPRESENTANTE_VEN.ID_REPRESENTANTE + " = " + idRep;
+                    + CheckMobileTables.CTE_REPRESENTANTE_VEN.MECANICO + " = " + tipo;
 
         }
         sqlStatement.setArguments(argument);

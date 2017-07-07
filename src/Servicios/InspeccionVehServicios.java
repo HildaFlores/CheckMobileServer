@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -107,7 +108,7 @@ public class InspeccionVehServicios {
                 + "  vehiculo_modelo b,\n"
                 + "  vehiculo_estilo c,\n"
                 + "  tipo_vehiculo t");
-        
+
         sqlStatement.setProjection("i.*,\n"
                 + "  c.nombres\n"
                 + "  || ' '\n"
@@ -117,10 +118,10 @@ public class InspeccionVehServicios {
                 + "  || b.descripcion\n"
                 + "  || ' '\n"
                 + "  || c.descripcion AS nombre_vehiculo, \n"
-                + "  t.descripcion as tipo_veh");
+                + "  t.descripcion as tipo_veh, c.id_condicion");
 
         sqlStatement.setArguments(argumentos);
-        sqlStatement.setOrderBy(CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION);
+        sqlStatement.setOrderBy(" To_number(" + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + ")");
         //System.out.print(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
         List<InspeccionVehiculo> inspeccion = new ArrayList<>();
@@ -128,7 +129,7 @@ public class InspeccionVehServicios {
             InspeccionVehiculo insp = (InspeccionVehiculo) currentInspeccion;
             inspeccion.add(insp);
         }
-        
+
         JsonResponse<InspeccionVehiculo> response = new JsonResponse<>();
         response.setData(inspeccion);
         response.setRows(inspeccion.size());
@@ -162,4 +163,23 @@ public class InspeccionVehServicios {
         return codigoServidor + "," + UtilsDB.idInspeccion;
     }
 
+    public static String anularInspeccion(String jsonObject) {
+
+        String[] parametros = jsonObject.split(",");
+
+        int registroInsertado = UtilsDB.executeUpdate(parametros, ObjetosDB.INSPECCION_VEHICULO);
+
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
+
+        return codigoServidor;
+    }
+
+    public static String convertInspeccion(String jsonObject) {
+  
+        int registroInsertado = UtilsDB.executeUpdate(jsonObject, ObjetosDB.INSPECCION_VEHICULO);
+
+        String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
+
+        return codigoServidor;
+    }
 }

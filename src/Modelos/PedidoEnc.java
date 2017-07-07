@@ -18,13 +18,13 @@ public class PedidoEnc implements java.io.Serializable {
     private String tipoTransaccion;
     private String nombreCliente;
     private String apellidosCte;
-    private BigDecimal montoBruto;
-    private BigDecimal montoNeto;
-    private BigDecimal porcDescuento;
-    private BigDecimal montoDesc;
-    private BigDecimal montoImpuestos;
-    private BigDecimal montoGravado;
-    private BigDecimal montoExento;
+    private String montoBruto;
+    private String montoNeto;
+    private String porcDescuento;
+    private String montoDesc;
+    private String montoImpuestos;
+    private String montoGravado;
+    private String montoExento;
     private String estado;
     private Date fechaInsercion;
     private String usuarioInsercion;
@@ -53,14 +53,14 @@ public class PedidoEnc implements java.io.Serializable {
     private Boolean cheque;
     private Boolean tarjeta;
     private String idTipoTransFac;
-    private String idDocumentoFac;
+    private String idDocumento;
     private BigDecimal montoCuota;
     private String idTipoNcf;
     private String noTransaccion;
     private Boolean tipoFt;
     private String notaDescuento;
     private String noOrden;
-    private Date fechaPedido;
+    private String fechaPedido;
     private String codTransporte;
     private Date fechaEnvio;
     private Short numeroDias;
@@ -86,103 +86,11 @@ public class PedidoEnc implements java.io.Serializable {
     private Date fechaPrestamo;
     private String idOferta;
     private Character tipoTasaMoneda;
+    private String id_inspeccion;
 
     public PedidoEnc() {
     }
 
-    public PedidoEnc(String id, String cliente, String estadoFactura, String tipoTransaccion, BigDecimal montoBruto, BigDecimal montoNeto, BigDecimal montoDesc, BigDecimal montoImpuestos, BigDecimal montoGravado, BigDecimal montoExento, String estado, Date fechaInsercion, String usuarioInsercion, String idCondicion) {
-        this.id = id;
-        this.cliente = cliente;
-        this.estadoFactura = estadoFactura;
-        this.tipoTransaccion = tipoTransaccion;
-        this.montoBruto = montoBruto;
-        this.montoNeto = montoNeto;
-        this.montoDesc = montoDesc;
-        this.montoImpuestos = montoImpuestos;
-        this.montoGravado = montoGravado;
-        this.montoExento = montoExento;
-        this.estado = estado;
-        this.fechaInsercion = fechaInsercion;
-        this.usuarioInsercion = usuarioInsercion;
-        this.idCondicion = idCondicion;
-    }
-
-    public PedidoEnc(String id, String cliente, String tipoTransaccion, String nombreCliente, String apellidosCte, BigDecimal montoBruto, BigDecimal montoNeto, BigDecimal porcDescuento, BigDecimal montoDesc, BigDecimal montoImpuestos, BigDecimal montoGravado, BigDecimal montoExento, String estado, Date fechaInsercion, String usuarioInsercion, String idAsesor, String notas, Date fechaActualizacion, String usuarioActualizacion, String idCondicion, BigDecimal tasaMoneda, String idMoneda, Long referencia, String rnc, Date fechaDocumento, BigDecimal montoExonerado, String calDesc, BigDecimal tasaExoneracion, BigDecimal tasaImp, Date fechaVenc, String impresion, Date fechaDespacho, String idMecanico, Long trOrigen, BigDecimal montoInicial, Integer noPagos, Boolean efectivo, Boolean cheque, Boolean tarjeta, String idTipoTransFac, String idDocumentoFac, BigDecimal montoCuota, String idTipoNcf, String noTransaccion, Boolean tipoFt, String notaDescuento, String noOrden, Date fechaPedido, String codTransporte, Date fechaEnvio, Short numeroDias, Date fechaRealizacion, BigDecimal montoAdicionales, Character recibirVehiculo, Character tipoFactura, String idTipoServicio, String idSupervisor, Short dias, Date fechaAnulacion, String idPersonalFacturador, BigDecimal devuelta, Boolean autOrdenCompra, String recibidoPor, String realizadoPor, Character ultimoFlujoComp, Short numeroDiasPe, Date fechaRealizacionPe, Integer noPagosPe, BigDecimal montoPe, BigDecimal valorCuota, Date fechaPrestamo, String idOferta, Character tipoTasaMoneda) {
-        this.id = id;
-        this.cliente = cliente;
-      
-        this.tipoTransaccion = tipoTransaccion;
-        this.nombreCliente = nombreCliente;
-        this.apellidosCte = apellidosCte;
-        this.montoBruto = montoBruto;
-        this.montoNeto = montoNeto;
-        this.porcDescuento = porcDescuento;
-        this.montoDesc = montoDesc;
-        this.montoImpuestos = montoImpuestos;
-        this.montoGravado = montoGravado;
-        this.montoExento = montoExento;
-        this.estado = estado;
-        this.fechaInsercion = fechaInsercion;
-        this.usuarioInsercion = usuarioInsercion;
-        this.idAsesor = idAsesor;
-        this.notas = notas;
-        this.fechaActualizacion = fechaActualizacion;
-        this.usuarioActualizacion = usuarioActualizacion;
-        this.idCondicion = idCondicion;
-        this.tasaMoneda = tasaMoneda;
-        this.idMoneda = idMoneda;
-        this.referencia = referencia;
-        this.rnc = rnc;
-        this.fechaDocumento = fechaDocumento;
-        this.montoExonerado = montoExonerado;
-        this.calDesc = calDesc;
-        this.tasaExoneracion = tasaExoneracion;
-        this.tasaImp = tasaImp;
-        this.fechaVenc = fechaVenc;
-        this.impresion = impresion;
-        this.fechaDespacho = fechaDespacho;
-        this.idMecanico = idMecanico;
-        this.trOrigen = trOrigen;
-        this.montoInicial = montoInicial;
-        this.noPagos = noPagos;
-        this.efectivo = efectivo;
-        this.cheque = cheque;
-        this.tarjeta = tarjeta;
-        this.idTipoTransFac = idTipoTransFac;
-        this.idDocumentoFac = idDocumentoFac;
-        this.montoCuota = montoCuota;
-        this.idTipoNcf = idTipoNcf;
-        this.noTransaccion = noTransaccion;
-        this.tipoFt = tipoFt;
-        this.notaDescuento = notaDescuento;
-        this.noOrden = noOrden;
-        this.fechaPedido = fechaPedido;
-        this.codTransporte = codTransporte;
-        this.fechaEnvio = fechaEnvio;
-        this.numeroDias = numeroDias;
-        this.fechaRealizacion = fechaRealizacion;
-        this.montoAdicionales = montoAdicionales;
-        this.recibirVehiculo = recibirVehiculo;
-        this.tipoFactura = tipoFactura;
-        this.idTipoServicio = idTipoServicio;
-        this.idSupervisor = idSupervisor;
-        this.dias = dias;
-        this.fechaAnulacion = fechaAnulacion;
-        this.idPersonalFacturador = idPersonalFacturador;
-        this.devuelta = devuelta;
-        this.autOrdenCompra = autOrdenCompra;
-        this.recibidoPor = recibidoPor;
-        this.realizadoPor = realizadoPor;
-        this.ultimoFlujoComp = ultimoFlujoComp;
-        this.numeroDiasPe = numeroDiasPe;
-        this.fechaRealizacionPe = fechaRealizacionPe;
-        this.noPagosPe = noPagosPe;
-        this.montoPe = montoPe;
-        this.valorCuota = valorCuota;
-        this.fechaPrestamo = fechaPrestamo;
-        this.idOferta = idOferta;
-        this.tipoTasaMoneda = tipoTasaMoneda;
-    }
 
     public String getId() {
         return this.id;
@@ -234,59 +142,59 @@ public class PedidoEnc implements java.io.Serializable {
         this.apellidosCte = apellidosCte;
     }
 
-    public BigDecimal getMontoBruto() {
+    public String getMontoBruto() {
         return this.montoBruto;
     }
 
-    public void setMontoBruto(BigDecimal montoBruto) {
+    public void setMontoBruto(String montoBruto) {
         this.montoBruto = montoBruto;
     }
 
-    public BigDecimal getMontoNeto() {
+    public String getMontoNeto() {
         return this.montoNeto;
     }
 
-    public void setMontoNeto(BigDecimal montoNeto) {
+    public void setMontoNeto(String montoNeto) {
         this.montoNeto = montoNeto;
     }
 
-    public BigDecimal getPorcDescuento() {
+    public String getPorcDescuento() {
         return this.porcDescuento;
     }
 
-    public void setPorcDescuento(BigDecimal porcDescuento) {
+    public void setPorcDescuento(String porcDescuento) {
         this.porcDescuento = porcDescuento;
     }
 
-    public BigDecimal getMontoDesc() {
+    public String getMontoDesc() {
         return this.montoDesc;
     }
 
-    public void setMontoDesc(BigDecimal montoDesc) {
+    public void setMontoDesc(String montoDesc) {
         this.montoDesc = montoDesc;
     }
 
-    public BigDecimal getMontoImpuestos() {
+    public String getMontoImpuestos() {
         return this.montoImpuestos;
     }
 
-    public void setMontoImpuestos(BigDecimal montoImpuestos) {
+    public void setMontoImpuestos(String montoImpuestos) {
         this.montoImpuestos = montoImpuestos;
     }
 
-    public BigDecimal getMontoGravado() {
+    public String getMontoGravado() {
         return this.montoGravado;
     }
 
-    public void setMontoGravado(BigDecimal montoGravado) {
+    public void setMontoGravado(String montoGravado) {
         this.montoGravado = montoGravado;
     }
 
-    public BigDecimal getMontoExento() {
+    public String getMontoExento() {
         return this.montoExento;
     }
 
-    public void setMontoExento(BigDecimal montoExento) {
+    public void setMontoExento(String montoExento) {
         this.montoExento = montoExento;
     }
 
@@ -514,12 +422,12 @@ public class PedidoEnc implements java.io.Serializable {
         this.idTipoTransFac = idTipoTransFac;
     }
 
-    public String getIdDocumentoFac() {
-        return this.idDocumentoFac;
+    public String getIdDocumento() {
+        return this.idDocumento;
     }
 
-    public void setIdDocumentoFac(String idDocumentoFac) {
-        this.idDocumentoFac = idDocumentoFac;
+    public void setIdDocumento(String idDocumento) {
+        this.idDocumento = idDocumento;
     }
 
     public BigDecimal getMontoCuota() {
@@ -570,11 +478,11 @@ public class PedidoEnc implements java.io.Serializable {
         this.noOrden = noOrden;
     }
 
-    public Date getFechaPedido() {
+    public String getFechaPedido() {
         return this.fechaPedido;
     }
 
-    public void setFechaPedido(Date fechaPedido) {
+    public void setFechaPedido(String fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 
@@ -818,6 +726,20 @@ public class PedidoEnc implements java.io.Serializable {
      */
     public void setId_documento(String id_documento) {
         this.id_documento = id_documento;
+    }
+
+    /**
+     * @return the id_inspeccion
+     */
+    public String getId_inspeccion() {
+        return id_inspeccion;
+    }
+
+    /**
+     * @param id_inspeccion the id_inspeccion to set
+     */
+    public void setId_inspeccion(String id_inspeccion) {
+        this.id_inspeccion = id_inspeccion;
     }
 
 }

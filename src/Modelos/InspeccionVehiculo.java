@@ -36,6 +36,7 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      private String nombre_vehiculo;
      private String nombre_cliente;
      private String tipo_veh;
+     private String id_condicion;
 
     public InspeccionVehiculo() {
     }
@@ -268,6 +269,20 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      */
     public void setTipo_veh(String tipo_veh) {
         this.tipo_veh = tipo_veh;
+    }
+
+    /**
+     * @return the id_condicion
+     */
+    public String getId_condicion() {
+        return id_condicion;
+    }
+
+    /**
+     * @param id_condicion the id_condicion to set
+     */
+    public void setId_condicion(String id_condicion) {
+        this.id_condicion = id_condicion;
     }
 
 

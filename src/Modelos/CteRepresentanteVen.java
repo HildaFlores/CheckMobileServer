@@ -33,6 +33,7 @@ public class CteRepresentanteVen  implements java.io.Serializable {
      private String edificio;
      private Character certificadoMagna;
      private Character certificadoDelta;
+     private String mecanico;
 
     public CteRepresentanteVen() {
     }
@@ -222,6 +223,20 @@ public class CteRepresentanteVen  implements java.io.Serializable {
     
     public void setCertificadoDelta(Character certificadoDelta) {
         this.certificadoDelta = certificadoDelta;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getMecanico() {
+        return mecanico;
+    }
+
+    /**
+     * @param mecanico the tipo to set
+     */
+    public void setMecanico(String mecanico) {
+        this.mecanico = mecanico;
     }
 
 

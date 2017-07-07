@@ -312,6 +312,7 @@ public class CheckMobileTables {
         public static final String FECHA_ACT = "fecha_actualizacion";
         public static final String USUARIO_ACT = "usuario_actualizacion";
         public static final String ESTADO = "estado";
+        public static final String MECANICO = "mecanico";
     }
 
     public static final class TIPO_TRANSACCION {
