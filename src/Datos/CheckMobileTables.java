@@ -344,7 +344,7 @@ public class CheckMobileTables {
 
     public static final class PEDIDO_ENC {
 
-        public static final String TABLE_NAME = "pedido_enc";
+        public static final String TABLE_NAME = "transaccional.pedido_enc";
         public static final String ID_EMPRESA = "id_empresa";
         public static final String ID_CLIENTE = "id_cliente";
         public static final String ID_TIPO_TRANS = "id_tipo_trans";
@@ -356,7 +356,7 @@ public class CheckMobileTables {
         public static final String MONTO_IMPUESTOS = "monto_impuestos";
         public static final String MONTO_GRAVADO = "monto_gravado";
         public static final String MONTO_EXENTO = "monto_exento";
-        public static final String ESTADO_DOCUMENTO = "estado_factura";
+        public static final String ESTADO_DOCUMENTO = "estado_documento";
         public static final String ID_ASESOR = "id_asesor";
         public static final String NOTAS = "notas";
         public static final String ID_CONDICION = "id_condicion";
@@ -371,12 +371,17 @@ public class CheckMobileTables {
         public static final String FECHA_ANULACION = "fecha_anulacion";
         public static final String RECIBIDO_POR = "recibido_por";
         public static final String REALIZADO_POR = "realizado_por";
-        public static final String ID_MECANICO = "id_mecanico";
+        public static final String ID_MECANICO = "id_rep_ven";
         public static final String FECHA_INSERCION = "fecha_insercion";
         public static final String USUARIO_INSERCION = "usuario_insercion";
         public static final String FECHA_ACT = "fecha_actualizacion";
         public static final String USUARIO_ACT = "usuario_actualizacion";
         public static final String ESTADO = "estado";
+        public static final String NOMBRE_CLIENTE = "nombre_cliente";
+        public static final String APELLIDO_CLIENTE = "apellidos_cte";
+        public static final String ID_INSPECCION = "id_inspeccion";
+        public static final String PIEZA_REEMPLAZO = "permite_pieza_reemplazo";
+        public static final String FECHA_PEDIDO = "fecha_pedido";
 
     }
 

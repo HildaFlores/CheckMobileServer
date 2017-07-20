@@ -1,5 +1,4 @@
 package Modelos;
-// Generated mar 27, 2017 10:48:16 a.m. by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -37,7 +36,7 @@ public class PedidoEnc implements java.io.Serializable {
     private String idMoneda;
     private Long referencia;
     private String rnc;
-    private Date fechaDocumento;
+    private String fechaDocumento;
     private BigDecimal montoExonerado;
     private String calDesc;
     private BigDecimal tasaExoneracion;
@@ -87,10 +86,12 @@ public class PedidoEnc implements java.io.Serializable {
     private String idOferta;
     private Character tipoTasaMoneda;
     private String id_inspeccion;
+    private String permite_pieza_reemplazo;
+    private String nombre_mecanico;
+    private String condicion;
 
     public PedidoEnc() {
     }
-
 
     public String getId() {
         return this.id;
@@ -294,11 +295,11 @@ public class PedidoEnc implements java.io.Serializable {
         this.rnc = rnc;
     }
 
-    public Date getFechaDocumento() {
+    public String getFechaDocumento() {
         return this.fechaDocumento;
     }
 
-    public void setFechaDocumento(Date fechaDocumento) {
+    public void setFechaDocumento(String fechaDocumento) {
         this.fechaDocumento = fechaDocumento;
     }
 
@@ -740,6 +741,48 @@ public class PedidoEnc implements java.io.Serializable {
      */
     public void setId_inspeccion(String id_inspeccion) {
         this.id_inspeccion = id_inspeccion;
+    }
+
+    /**
+     * @return the permite_pieza_reemplazo
+     */
+    public String getPermite_pieza_reemplazo() {
+        return permite_pieza_reemplazo;
+    }
+
+    /**
+     * @param permite_pieza_reemplazo the permite_pieza_reemplazo to set
+     */
+    public void setPermite_pieza_reemplazo(String permite_pieza_reemplazo) {
+        this.permite_pieza_reemplazo = permite_pieza_reemplazo;
+    }
+
+    /**
+     * @return the nombre_mecanico
+     */
+    public String getNombre_mecanico() {
+        return nombre_mecanico;
+    }
+
+    /**
+     * @param nombre_mecanico the nombre_mecanico to set
+     */
+    public void setNombre_mecanico(String nombre_mecanico) {
+        this.nombre_mecanico = nombre_mecanico;
+    }
+
+    /**
+     * @return the condicion
+     */
+    public String getCondicion() {
+        return condicion;
+    }
+
+    /**
+     * @param condicion the condicion to set
+     */
+    public void setCondicion(String condicion) {
+        this.condicion = condicion;
     }
 
 }

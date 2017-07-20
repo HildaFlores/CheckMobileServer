@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Rutas/InspeccionRutas.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Rutas/PedidoDetRutas.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Modelos/PedidoProducto.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/InspeccionVehServicios.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Datos/UtilsDB.java</file>
+            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Datos/CheckMobileTables.java</file>
             <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Rutas/PedidoEncRutas.java</file>
-            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/PedidoProServicios.java</file>
+            <file>file:/C:/Users/Prueba/Documents/OD/Documentos-PC/Proyecto%20final%20de%20grado/CheckMobile/src/Servicios/PedidoEncServicios.java</file>
         </group>
     </open-files>
 </project-private>

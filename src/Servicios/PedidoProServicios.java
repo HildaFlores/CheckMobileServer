@@ -31,29 +31,29 @@ public class PedidoProServicios {
     }
 
     public static JsonResponse<PedidoProducto> queryPedidoDet(JsonObject jsonObject) throws SQLException {
-
         String idDocumento = null;
         String tipoTrans = null;
-        
+        String formated;
         
          if (jsonObject != null) {
             idDocumento = jsonObject.has(Constantes.JSON_KEY_PEDIDO_ID) ? jsonObject.get(Constantes.JSON_KEY_PEDIDO_ID).getAsString() : null;
             tipoTrans = jsonObject.has(Constantes.JSON_KEY_TIPO_TRANS) ? jsonObject.get(Constantes.JSON_KEY_TIPO_TRANS).getAsString() : null;
-        }
-        
-        String argumentos;
-        if (idDocumento == null) {
+        }    
+        String argumentos = null;
+        if (idDocumento == null && tipoTrans != null) {
             argumentos = "WHERE " + CheckMobileTables.PEDIDO_PRODUCTO.ID_DOCUMENTO
                     + " = " + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + " AND "
                     + CheckMobileTables.PEDIDO_PRODUCTO.ID_EMPRESA + " = "
                     + Constantes.ID_EMPRESA + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ESTADO + " = 'A'" + " AND "
                     + CheckMobileTables.PEDIDO_PRODUCTO.ID_TIPO_TRANS + " = " + tipoTrans;
 
-        } else {
+        } else if (idDocumento != null && tipoTrans != null) {
+            formated = "'" + tipoTrans + "'";
             argumentos = "WHERE " + CheckMobileTables.PEDIDO_PRODUCTO.ID_DOCUMENTO + " = " + idDocumento
                     + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ID_DOCUMENTO + " = " + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO
                     + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
-                    + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ESTADO + " = 'A' ";
+                    + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ESTADO + " = 'A' " 
+                    + " AND " + CheckMobileTables.PEDIDO_PRODUCTO.ID_TIPO_TRANS + " = " + formated;
         }
         SqlStatement sqlStatement = new SqlStatement();
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);

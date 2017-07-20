@@ -13,7 +13,7 @@ public class PedidoProducto implements java.io.Serializable {
 
     private String id_empresa;
     private String id_tipo_trans;
-    private String id_documento;
+    private String id_documento;    
     private String id_centro_costo;
     private String id_producto;
     private String cod_barra;
