@@ -37,6 +37,13 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      private String nombre_cliente;
      private String tipo_veh;
      private String id_condicion;
+     private String placa;
+     private String color;
+     private String docIdentidad;
+     private String telefono;
+     private String celular;
+     private int dias;
+    
 
     public InspeccionVehiculo() {
     }
@@ -283,6 +290,90 @@ public class InspeccionVehiculo  implements java.io.Serializable {
      */
     public void setId_condicion(String id_condicion) {
         this.id_condicion = id_condicion;
+    }
+
+    /**
+     * @return the placa
+     */
+    public String getPlaca() {
+        return placa;
+    }
+
+    /**
+     * @param placa the placa to set
+     */
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    /**
+     * @return the color
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    /**
+     * @return the docIdentidad
+     */
+    public String getDocIdentidad() {
+        return docIdentidad;
+    }
+
+    /**
+     * @param docIdentidad the docIdentidad to set
+     */
+    public void setDocIdentidad(String docIdentidad) {
+        this.docIdentidad = docIdentidad;
+    }
+
+    /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    /**
+     * @return the celular
+     */
+    public String getCelular() {
+        return celular;
+    }
+
+    /**
+     * @param celular the celular to set
+     */
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    /**
+     * @return the dias
+     */
+    public int getDias() {
+        return dias;
+    }
+
+    /**
+     * @param dias the dias to set
+     */
+    public void setDias(int dias) {
+        this.dias = dias;
     }
 
 

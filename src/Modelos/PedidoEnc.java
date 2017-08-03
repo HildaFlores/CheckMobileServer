@@ -89,6 +89,7 @@ public class PedidoEnc implements java.io.Serializable {
     private String permite_pieza_reemplazo;
     private String nombre_mecanico;
     private String condicion;
+    private int kilometraje;
 
     public PedidoEnc() {
     }
@@ -783,6 +784,20 @@ public class PedidoEnc implements java.io.Serializable {
      */
     public void setCondicion(String condicion) {
         this.condicion = condicion;
+    }
+
+    /**
+     * @return the kilometraje
+     */
+    public int getKilometraje() {
+        return kilometraje;
+    }
+
+    /**
+     * @param kilometraje the kilometraje to set
+     */
+    public void setKilometraje(int kilometraje) {
+        this.kilometraje = kilometraje;
     }
 
 }

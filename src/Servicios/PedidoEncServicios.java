@@ -1,4 +1,3 @@
-
 package Servicios;
 
 import Datos.CheckMobileTables;
@@ -17,7 +16,6 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PedidoEncServicios {
 
@@ -60,8 +58,69 @@ public class PedidoEncServicios {
         sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico, co.descripcion as condicion");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
-       
+
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.PEDIDO_ENC);
+        List<PedidoEnc> pedidos = new ArrayList<>();
+        for (Object currentInspeccion : objects) {
+            PedidoEnc insp = (PedidoEnc) currentInspeccion;
+            pedidos.add(insp);
+        }
+
+        JsonResponse<PedidoEnc> response = new JsonResponse<>();
+        response.setData(pedidos);
+        response.setRows(pedidos.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+
+    //Queries de la tabla pedido_enc
+    public static JsonResponse<PedidoEnc> queryPedidoEncFecha(JsonObject jsonObject) throws SQLException {
+
+        String fechaIni = null;
+        String fechaFin = null;
+        String tipoTrans = null;
+        String argumentos = null;
+        String formated;
+
+        if (jsonObject != null) {
+            fechaIni = jsonObject.has(Constantes.JSON_KEY_FECHA_INICIAL) ? jsonObject.get(Constantes.JSON_KEY_FECHA_INICIAL).getAsString() : null;
+            fechaFin = jsonObject.has(Constantes.JSON_KEY_FECHA_FINAL) ? jsonObject.get(Constantes.JSON_KEY_FECHA_FINAL).getAsString() : null;
+            tipoTrans = jsonObject.has(Constantes.JSON_KEY_TIPO_TRANS) ? jsonObject.get(Constantes.JSON_KEY_TIPO_TRANS).getAsString() : null;
+        }
+
+        if (tipoTrans != null && fechaIni != null && fechaFin != null) {
+            formated = "'" + tipoTrans + "'";
+            argumentos = " WHERE p.id_empresa      = c.id_empresa "
+                    + "AND p.id_rep_ven        = c.id_rep_ven "
+                    + "AND p.id_condicion      = co.id_condicion "
+                    + "AND p.id_empresa        = co.id_empresa "
+                    + "AND p.id_inspeccion       = i.id_inspeccion "
+                    + "AND p.id_empresa        = i.id_empresa "
+                    + "AND p." + CheckMobileTables.PEDIDO_ENC.ID_TIPO_TRANS + " = " + formated + " "
+                    + "AND p." + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " "
+                    + "AND p." + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO + " <> 'N' "
+                    + "AND p.estado            = 'A' "
+                    + "AND p.id_documento      = prod.id_documento "
+                    + "AND p.id_tipo_trans      = prod.id_tipo_trans "
+                    + "AND p.id_empresa        = prod.id_empresa "
+                    + "AND prod.id_producto = " + Constantes.ID_PRODUCTO_MANTENIMIENTO + " " 
+                    + "AND p.fecha_pedido   >= to_date(' " + fechaIni + "', 'DD/MM/RRRR') "
+                    + "AND p.fecha_pedido <= to_date('" + fechaFin  + "', 'DD/MM/RRRR') ";
+
+        }
+
+        SqlStatement sqlStatement = new SqlStatement();
+        sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
+        sqlStatement.setTable("pedido_enc p, cte_representante_ven c, condicion_pago co, pedido_producto prod, inspeccion_vehiculo i");
+        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico, co.descripcion as condicion, i.kilometraje");
+        sqlStatement.setArguments(argumentos);
+        sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
+
+       // System.out.print(sqlStatement);
+
+        List<Object> objects = UtilsDB.executeQuery2(sqlStatement, ObjetosDB.PEDIDO_ENC);
         List<PedidoEnc> pedidos = new ArrayList<>();
         for (Object currentInspeccion : objects) {
             PedidoEnc insp = (PedidoEnc) currentInspeccion;
@@ -100,7 +159,7 @@ public class PedidoEncServicios {
 //        }
         return codigoServidor + "," + UtilsDB.idDocumento;
     }
-    
+
     public static String updateOrdenTrabajo(String jsonObject) {
         Type inspeccionListType = new TypeToken<ArrayList<PedidoEnc>>() {
         }.getType();

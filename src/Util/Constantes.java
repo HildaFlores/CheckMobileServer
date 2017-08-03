@@ -16,6 +16,7 @@ public class Constantes {
     public static final String USUARIO_PROPIEDAD = "user";
     public static final String CLAVE_PROPIEDAD = "password";
     public static final String ID_EMPRESA = "3";
+    public static final String ID_PRODUCTO_MANTENIMIENTO = "2937";
 
     // tipos de respuestas
     public static final String JSON = "application/getJsonTransformer";
@@ -50,6 +51,12 @@ public class Constantes {
     public static final String JSON_USARIO_ADMIN = "usuario";
     public static final String JSON_CLAVE_USUARIO_ADMIN = "clave";
     public static final String JSON_KEY_DOC_IDENTIDAD = "rnc_cedula";
+    public static final String JSON_KEY_FECHA_INICIAL = "fecha_inicial";
+     public static final String JSON_KEY_FECHA_FINAL = "fecha_final";
+    
+    
+    
+    
     public static final String JSON_KEY_TYPE = "type";
     public static final String JSON_KEY_API_KEY = "api_key";
 

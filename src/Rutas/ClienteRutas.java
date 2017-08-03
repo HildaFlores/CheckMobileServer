@@ -18,13 +18,12 @@ public class ClienteRutas {
     }
 
     /**
-     * Sets the client routes.
+     * Sets the client routes.  
      */
     public static void setClienteRutas() { 
         post("/clientes", ((request, response) -> queryCliente(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
         post("/direcciones", ((request, response) -> queryClienteDireccion(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
         post("/telefonos", ((request, response) -> queryTelefonoCte(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
-        
         put("/clientes", ((request, response) -> insertCliente(request.body())), JsonUtils::toJson);
 
     }

@@ -21,6 +21,8 @@ public class UtilsDB {
     public static String idVehiculo, idCliente, idInspeccion, idMarca, idModelo, idEstilo, idDocumento;
     public static int contador = 0;
 
+    
+
     public static List<Object> executeQuery(SqlStatement sql, ObjetosDB dbObject) throws SQLException {
         List<Object> objetos = null;
 
@@ -189,6 +191,29 @@ public class UtilsDB {
         return objetos;
     }
 
+    public static List<Object> executeQuery2(SqlStatement sql, ObjetosDB dbObject) throws SQLException {
+        List<Object> objetos = null;
+
+        try (Connection conexion = getConnection();
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql.toString());
+                ResultSet resultSet = preparedStatement.executeQuery()) {
+            switch (dbObject) {
+                case INSPECCION_VEHICULO: {
+                    objetos = getInspeccion_vehiculo2(resultSet);
+                    break;
+                }
+                case PEDIDO_ENC:
+                {
+                    objetos = getPedido_enc2(resultSet);
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return objetos;
+    }
+    
     public static int executeInsert(Object object, ObjetosDB dbObject) {
         int registrosInsertados = 0;
         switch (dbObject) {
@@ -487,6 +512,7 @@ public class UtilsDB {
             veh.setIdTransmision(resultSet.getString(VEHICULO.ID_TRANSMISION));
             veh.setGarantia(resultSet.getString(VEHICULO.GARANTIA));
             veh.setIdTraccion(resultSet.getString(VEHICULO.ID_TRACCION));
+            veh.setPlaca(resultSet.getString(VEHICULO.PLACA));
 
             Veh_list.add(veh);
         }
@@ -597,6 +623,40 @@ public class UtilsDB {
             ins.setFechaInspeccion(resultSet.getString(INSPECCION_VEHICULO.FECHA_INSERCION));
             ins.setSerieGomas(resultSet.getString(INSPECCION_VEHICULO.SERIE_GOMAS));
             ins.setId_condicion(resultSet.getString("id_condicion"));
+            ins.setPlaca(resultSet.getString("placa"));
+            ins.setTelefono(resultSet.getString("telefono"));
+            ins.setCelular(resultSet.getString("celular"));
+            ins.setColor(resultSet.getString("color"));
+            ins.setDocIdentidad(resultSet.getString("identidad"));
+            ins.setDias(resultSet.getInt("dias"));
+
+            inspeccion_list.add(ins);
+        }
+        return inspeccion_list;
+
+    }
+    
+    private static List<Object> getInspeccion_vehiculo2(ResultSet resultSet) throws SQLException {
+        List<Object> inspeccion_list = new ArrayList<>();
+        while (resultSet.next()) {
+            InspeccionVehiculo ins = new InspeccionVehiculo();
+            ins.setId(resultSet.getString(INSPECCION_VEHICULO.ID_INSPECCION));
+            ins.setId_empresa(resultSet.getString(INSPECCION_VEHICULO.ID_EMPRESA));
+            ins.setIdVehiculo(resultSet.getString(INSPECCION_VEHICULO.ID_VEHICULO));
+            ins.setChasis(resultSet.getString(INSPECCION_VEHICULO.CHASIS));
+            ins.setIdCliente(resultSet.getString(INSPECCION_VEHICULO.ID_CLIENTE));
+            ins.setIdAsesor(resultSet.getString(INSPECCION_VEHICULO.ID_ASESOR));
+            ins.setObservaciones(resultSet.getString(INSPECCION_VEHICULO.OBSERVACIONES));
+            ins.setReferencia(resultSet.getString(INSPECCION_VEHICULO.REFERENCIA));
+            ins.setSupervisor(resultSet.getString(INSPECCION_VEHICULO.SUPERVISOR));
+            ins.setEstado(resultSet.getString(INSPECCION_VEHICULO.ESTADO));
+            ins.setMotor(resultSet.getString(INSPECCION_VEHICULO.MOTOR));
+            ins.setEstado_inspeccion(resultSet.getString(INSPECCION_VEHICULO.ESTADO_INSPECCION));
+            ins.setKilometraje(resultSet.getString(INSPECCION_VEHICULO.KILOMETRAJE));
+            ins.setFechaInspeccion(resultSet.getString(INSPECCION_VEHICULO.FECHA_INSERCION));
+            ins.setSerieGomas(resultSet.getString(INSPECCION_VEHICULO.SERIE_GOMAS));
+            ins.setDias(resultSet.getInt("dias"));
+           
             inspeccion_list.add(ins);
         }
         return inspeccion_list;
@@ -721,6 +781,43 @@ public class UtilsDB {
             dato.setPermite_pieza_reemplazo(resultSet.getString(PEDIDO_ENC.PIEZA_REEMPLAZO));
             dato.setNombre_mecanico(resultSet.getString("nombre_mecanico"));
             dato.setCondicion(resultSet.getString("condicion"));
+
+            pedEnc_list.add(dato);
+        }
+        return pedEnc_list;
+    }
+    
+     private static List<Object> getPedido_enc2(ResultSet resultSet) throws SQLException {
+        List<Object> pedEnc_list = new ArrayList<>();
+        while (resultSet.next()) {
+            PedidoEnc dato = new PedidoEnc();
+            dato.setId(resultSet.getString(PEDIDO_ENC.ID_DOCUMENTO));
+            dato.setId_empresa(resultSet.getString(PEDIDO_ENC.ID_EMPRESA));
+            dato.setIdMecanico(resultSet.getString(PEDIDO_ENC.ID_MECANICO));
+            dato.setIdSupervisor(resultSet.getString(PEDIDO_ENC.ID_SUPERVISOR));
+            dato.setCliente(resultSet.getString(PEDIDO_ENC.ID_CLIENTE));
+            dato.setNombreCliente(resultSet.getString(PEDIDO_ENC.NOMBRE_CLIENTE));
+            dato.setApellidosCte(resultSet.getString(PEDIDO_ENC.APELLIDO_CLIENTE));
+            dato.setTipoTransaccion(resultSet.getString(PEDIDO_ENC.ID_TIPO_TRANS));
+            dato.setMontoBruto(resultSet.getString(PEDIDO_ENC.MONTO_BRUTO));
+            dato.setMontoNeto(resultSet.getString(PEDIDO_ENC.MONTO_NETO));
+            dato.setPorcDescuento(resultSet.getString(PEDIDO_ENC.PORC_DESCUENTO));
+            dato.setMontoDesc(resultSet.getString(PEDIDO_ENC.MONTO_DESC));
+            dato.setMontoImpuestos(resultSet.getString(PEDIDO_ENC.MONTO_IMPUESTOS));
+            dato.setIdCondicion(resultSet.getString(PEDIDO_ENC.ID_CONDICION));
+            dato.setEstadoFactura(resultSet.getString(PEDIDO_ENC.ESTADO_DOCUMENTO));
+            dato.setEstado(resultSet.getString(PEDIDO_ENC.ESTADO));
+            dato.setFechaPedido(resultSet.getString(PEDIDO_ENC.FECHA_PEDIDO));
+            dato.setFechaDespacho(resultSet.getDate(PEDIDO_ENC.FECHA_DESPACHO));
+            dato.setNoOrden(resultSet.getString(PEDIDO_ENC.NO_ORDEN));
+            dato.setId_inspeccion(resultSet.getString(PEDIDO_ENC.ID_INSPECCION));
+            dato.setRecibidoPor(resultSet.getString(PEDIDO_ENC.RECIBIDO_POR));
+            dato.setRealizadoPor(resultSet.getString(PEDIDO_ENC.REALIZADO_POR));
+            dato.setNotas(resultSet.getString(PEDIDO_ENC.NOTAS));
+            dato.setPermite_pieza_reemplazo(resultSet.getString(PEDIDO_ENC.PIEZA_REEMPLAZO));
+            dato.setNombre_mecanico(resultSet.getString("nombre_mecanico"));
+            dato.setCondicion(resultSet.getString("condicion"));
+            dato.setKilometraje(resultSet.getInt("kilometraje"));
 
             pedEnc_list.add(dato);
         }
@@ -1929,7 +2026,7 @@ public class UtilsDB {
                 cst.setString(7, ins.getNotas());
                 cst.setString(8, ins.getIdMecanico());
                 cst.setString(9, ins.getIdCondicion());
-                
+
             }
             cst.execute();
             conexion.commit();
