@@ -196,7 +196,6 @@ public class InspeccionVehServicios {
         sqlStatement.setOrderBy("To_number( i." + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + ")");
 
        // System.out.println(sqlStatement);
-
         //System.out.print(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
         List<InspeccionVehiculo> inspeccion = new ArrayList<>();
@@ -205,6 +204,71 @@ public class InspeccionVehServicios {
             inspeccion.add(insp);
         }
 
+        JsonResponse<InspeccionVehiculo> response = new JsonResponse<>();
+        response.setData(inspeccion);
+        response.setRows(inspeccion.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+
+    //Queries en la tabla inspeccion_vehiculo
+    public static JsonResponse<InspeccionVehiculo> queryInspeccionPorVehiculo(JsonObject jsonObject) throws SQLException {
+
+        String referencia = null;
+        String argumentos = null;
+        SqlStatement sqlStatement = new SqlStatement();
+
+        if (jsonObject != null) {
+            referencia = jsonObject.has(Constantes.JSON_KEY_VEHICULO) ? jsonObject.get(Constantes.JSON_KEY_VEHICULO).getAsString() : null;
+
+        }
+        if (referencia != null) {
+            argumentos = "WHERE i.id_empresa = v.id_empresa\n"
+                    + " AND v.id_vehiculo       = i.id_vehiculo\n"
+                    + " AND v.id_marca          = a.id_marca\n"
+                    + " AND v.id_modelo         = b.id_modelo\n"
+                    + " AND v.id_estilo         = c.id_estilo\n"
+                    + " AND c.id_cliente        = v.id_cliente\n"
+                    + " AND i.id_empresa        = '3'\n"
+                    + "AND  i.estado_inspeccion = 'F'"
+                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO"
+                    + " AND i.estado = 'A'" + " AND i.referencia = " + "'" + referencia + "'";
+
+        }
+
+        sqlStatement.setOperation(SqlOperation.SELECT);
+        sqlStatement.setTable("inspeccion_vehiculo i ,\n"
+                + "  cliente c,\n"
+                + "  vehiculo v,\n"
+                + "  vehiculo_marca a,\n"
+                + "  vehiculo_modelo b,\n"
+                + "  vehiculo_estilo c,\n"
+                + "  tipo_vehiculo t");
+
+        sqlStatement.setProjection("i.*, Trunc(sysdate - i.fecha_inspeccion) as dias,\n"
+                + "  c.nombres\n"
+                + "  || ' '\n"
+                + "  || c.apellidos AS nombre_cliente,\n"
+                + "  a.descripcion\n"
+                + "  || ' '\n"
+                + "  || b.descripcion\n"
+                + "  || ' '\n"
+                + "  || c.descripcion AS nombre_vehiculo, \n"
+                + "  t.descripcion as tipo_veh, c.id_condicion, "
+                + "v.placa, v.color, nvl(c.DOCUMENTO_IDENTIDAD, c.RNC) as identidad,  c.TELEFONO, c.TELEFONO_MOVIL as celular");
+
+        sqlStatement.setArguments(argumentos);
+        sqlStatement.setOrderBy(" To_number(" + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + ")");
+        //   System.out.println(sqlStatement);
+        List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
+        List<InspeccionVehiculo> inspeccion = new ArrayList<>();
+        for (Object currentInspeccion : objects) {
+            InspeccionVehiculo insp = (InspeccionVehiculo) currentInspeccion;
+            inspeccion.add(insp);
+        }
+     //  System.out.println(sqlStatement);
         JsonResponse<InspeccionVehiculo> response = new JsonResponse<>();
         response.setData(inspeccion);
         response.setRows(inspeccion.size());

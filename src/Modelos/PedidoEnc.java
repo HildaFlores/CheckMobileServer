@@ -90,6 +90,7 @@ public class PedidoEnc implements java.io.Serializable {
     private String nombre_mecanico;
     private String condicion;
     private int kilometraje;
+    private String nombreSupervisor;
 
     public PedidoEnc() {
     }
@@ -798,6 +799,20 @@ public class PedidoEnc implements java.io.Serializable {
      */
     public void setKilometraje(int kilometraje) {
         this.kilometraje = kilometraje;
+    }
+
+    /**
+     * @return the nombreSupervisor
+     */
+    public String getNombreSupervisor() {
+        return nombreSupervisor;
+    }
+
+    /**
+     * @param nombreSupervisor the nombreSupervisor to set
+     */
+    public void setNombreSupervisor(String nombreSupervisor) {
+        this.nombreSupervisor = nombreSupervisor;
     }
 
 }

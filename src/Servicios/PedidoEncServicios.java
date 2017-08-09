@@ -2,7 +2,6 @@ package Servicios;
 
 import Datos.CheckMobileTables;
 import Datos.UtilsDB;
-import Modelos.InspeccionVehiculo;
 import Modelos.JsonResponse;
 import Modelos.ObjetosDB;
 import Modelos.OperacionSql;
@@ -45,7 +44,9 @@ public class PedidoEncServicios {
             argumentos = "where p.id_empresa = c.id_empresa\n"
                     + " and p.id_rep_ven = c.id_rep_ven\n"
                     + " and p.id_condicion = co.id_condicion\n"
+                    + " and p.id_supervisor = pe.id_personal\n"
                     + " and p.estado = 'A' and p.id_empresa = co.id_empresa"
+                    + " and p.id_empresa = pe.id_empresa\n"
                     + " and p." + CheckMobileTables.PEDIDO_ENC.ID_TIPO_TRANS + " = " + formated
                     + " and p." + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
                     + " and p." + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO + " = 'V'";
@@ -54,12 +55,15 @@ public class PedidoEncServicios {
 
         SqlStatement sqlStatement = new SqlStatement();
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
-        sqlStatement.setTable("pedido_enc p, cte_representante_ven c, condicion_pago co");
-        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico, co.descripcion as condicion");
+        sqlStatement.setTable("pedido_enc p, cte_representante_ven c, condicion_pago co, personal pe");
+        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico,"
+                + " co.descripcion as condicion, pe.nombres || ' '|| pe.apellidos as nombreSupervisor");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
 
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.PEDIDO_ENC);
+
+        //  System.out.println(sqlStatement);
         List<PedidoEnc> pedidos = new ArrayList<>();
         for (Object currentInspeccion : objects) {
             PedidoEnc insp = (PedidoEnc) currentInspeccion;
@@ -75,6 +79,115 @@ public class PedidoEncServicios {
 
     }
 
+    //Queries de la tabla pedido_enc
+    public static JsonResponse<PedidoEnc> queryPedidoPorReferencia(JsonObject jsonObject) throws SQLException {
+
+        String referencia = null;
+        String argumentos = null;
+
+        if (jsonObject != null) {
+            referencia = jsonObject.has(Constantes.JSON_KEY_VEHICULO) ? jsonObject.get(Constantes.JSON_KEY_VEHICULO).getAsString() : null;
+        }
+
+        if (referencia != null) {
+
+            argumentos = " where p.id_empresa = c.id_empresa\n"
+                    + " and p.id_rep_ven = c.id_rep_ven\n"
+                    + " and p.id_condicion = co.id_condicion\n"
+                    + " and p.id_supervisor = pe.id_personal\n"
+                    + " and p.estado = 'A' and p.id_empresa = co.id_empresa"
+                    + " and p.id_empresa = pe.id_empresa\n"
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ID_TIPO_TRANS + " = " + "'OTT'"
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO + " = 'V'"
+                    + " and p.referencia = " + "'" + referencia + "'";
+
+        }
+
+        SqlStatement sqlStatement = new SqlStatement();
+        sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
+        sqlStatement.setTable("pedido_enc p, cte_representante_ven c, condicion_pago co, personal pe");
+        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico,"
+                + " co.descripcion as condicion, pe.nombres || ' '|| pe.apellidos as nombreSupervisor");
+        sqlStatement.setArguments(argumentos);
+        sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
+
+        List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.PEDIDO_ENC);
+
+        //  System.out.println(sqlStatement);
+        List<PedidoEnc> pedidos = new ArrayList<>();
+        for (Object currentInspeccion : objects) {
+            PedidoEnc insp = (PedidoEnc) currentInspeccion;
+            pedidos.add(insp);
+        }
+
+        JsonResponse<PedidoEnc> response = new JsonResponse<>();
+        response.setData(pedidos);
+        response.setRows(pedidos.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+
+    
+     //Queries de la tabla pedido_enc
+    public static JsonResponse<PedidoEnc> queryMantenimientoPorReferencia(JsonObject jsonObject) throws SQLException {
+
+        String referencia = null;
+        String argumentos = null;
+
+        if (jsonObject != null) {
+            referencia = jsonObject.has(Constantes.JSON_KEY_VEHICULO) ? jsonObject.get(Constantes.JSON_KEY_VEHICULO).getAsString() : null;
+        }
+
+        if (referencia != null) {
+
+            argumentos = " where p.id_empresa = c.id_empresa\n"
+                    + " and p.id_rep_ven = c.id_rep_ven\n"
+                    + " and p.id_condicion = co.id_condicion\n"
+                    + " and p.id_supervisor = pe.id_personal\n"
+                    + " and p.estado = 'A' and p.id_empresa = co.id_empresa"
+                    + " and p.id_empresa = pe.id_empresa\n" 
+                    + " and p.id_tipo_trans = pro.id_tipo_trans\n"
+                    + " and p.id_documento = pro.id_documento\n"
+                    + " and p.id_empresa = pro.id_empresa\n" 
+                    + " and p.id_inspeccion = ins.id_inspeccion\n"
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ID_TIPO_TRANS + " = " + "'OTT'"
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
+                    + " and p." + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO + " = 'V'"
+                    + " and p.referencia = " + "'" + referencia + "'" 
+                    + " and pro.id_producto = '2937' ";
+
+        }
+
+        SqlStatement sqlStatement = new SqlStatement();
+        sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
+        sqlStatement.setTable("pedido_enc p, cte_representante_ven c,"
+                + " condicion_pago co, personal pe, pedido_producto pro, inspeccion_vehiculo ins");
+        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico,"
+                + " co.descripcion as condicion, pe.nombres || ' '|| pe.apellidos as nombreSupervisor, ins.kilometraje");
+        sqlStatement.setArguments(argumentos);
+        sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
+
+        List<Object> objects = UtilsDB.executeQuery2(sqlStatement, ObjetosDB.PEDIDO_ENC);
+
+        //  System.out.println(sqlStatement);
+        List<PedidoEnc> pedidos = new ArrayList<>();
+        for (Object currentInspeccion : objects) {
+            PedidoEnc insp = (PedidoEnc) currentInspeccion;
+            pedidos.add(insp);
+        }
+
+        JsonResponse<PedidoEnc> response = new JsonResponse<>();
+        response.setData(pedidos);
+        response.setRows(pedidos.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+    
     //Queries de la tabla pedido_enc
     public static JsonResponse<PedidoEnc> queryPedidoEncFecha(JsonObject jsonObject) throws SQLException {
 
@@ -103,23 +216,26 @@ public class PedidoEncServicios {
                     + "AND p." + CheckMobileTables.PEDIDO_ENC.ESTADO_DOCUMENTO + " <> 'N' "
                     + "AND p.estado            = 'A' "
                     + "AND p.id_documento      = prod.id_documento "
-                    + "AND p.id_tipo_trans      = prod.id_tipo_trans "
+                    + "AND p.id_tipo_trans     = prod.id_tipo_trans "
                     + "AND p.id_empresa        = prod.id_empresa "
-                    + "AND prod.id_producto = " + Constantes.ID_PRODUCTO_MANTENIMIENTO + " " 
+                    + "AND p.id_supervisor     = pe.id_personal "
+                    + "AND p.id_empresa = pe.id_empresa "
+                    + "AND prod.id_producto    = " + Constantes.ID_PRODUCTO_MANTENIMIENTO + " "
                     + "AND p.fecha_pedido   >= to_date(' " + fechaIni + "', 'DD/MM/RRRR') "
-                    + "AND p.fecha_pedido <= to_date('" + fechaFin  + "', 'DD/MM/RRRR') ";
+                    + "AND p.fecha_pedido <= to_date('" + fechaFin + "', 'DD/MM/RRRR') ";
 
         }
 
         SqlStatement sqlStatement = new SqlStatement();
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
-        sqlStatement.setTable("pedido_enc p, cte_representante_ven c, condicion_pago co, pedido_producto prod, inspeccion_vehiculo i");
-        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico, co.descripcion as condicion, i.kilometraje");
+        sqlStatement.setTable("pedido_enc p, cte_representante_ven c,"
+                + " condicion_pago co, pedido_producto prod, inspeccion_vehiculo i, personal pe");
+        sqlStatement.setProjection(" p.*, c.nombres  || ' ' || c.apellidos as nombre_mecanico, "
+                + "co.descripcion as condicion, i.kilometraje, pe.nombres || ' '|| pe.apellidos as nombreSupervisor ");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(" to_number(p." + CheckMobileTables.PEDIDO_ENC.ID_DOCUMENTO + ")");
 
-       // System.out.print(sqlStatement);
-
+        //System.out.print(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery2(sqlStatement, ObjetosDB.PEDIDO_ENC);
         List<PedidoEnc> pedidos = new ArrayList<>();
         for (Object currentInspeccion : objects) {

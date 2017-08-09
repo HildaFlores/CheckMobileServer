@@ -781,6 +781,7 @@ public class UtilsDB {
             dato.setPermite_pieza_reemplazo(resultSet.getString(PEDIDO_ENC.PIEZA_REEMPLAZO));
             dato.setNombre_mecanico(resultSet.getString("nombre_mecanico"));
             dato.setCondicion(resultSet.getString("condicion"));
+            dato.setNombreSupervisor(resultSet.getString("nombreSupervisor"));
 
             pedEnc_list.add(dato);
         }
@@ -818,6 +819,7 @@ public class UtilsDB {
             dato.setNombre_mecanico(resultSet.getString("nombre_mecanico"));
             dato.setCondicion(resultSet.getString("condicion"));
             dato.setKilometraje(resultSet.getInt("kilometraje"));
+            dato.setNombreSupervisor(resultSet.getString("nombreSupervisor"));
 
             pedEnc_list.add(dato);
         }
@@ -898,14 +900,14 @@ public class UtilsDB {
             dato.setApellidos(resultSet.getString(PERSONAL.APELLIDOS));
             dato.setClave(resultSet.getString(PERSONAL.CLAVE));
             dato.setEstadoCivil(resultSet.getString(PERSONAL.ESTADO_CIVIL));
-            dato.setfechaNac(resultSet.getDate(PERSONAL.FECHA_NACIMIENTO));
+            dato.setfechaNac(resultSet.getString(PERSONAL.FECHA_NACIMIENTO));
             dato.setTelefono(resultSet.getString(PERSONAL.TELEFONO));
             dato.setTelefonoMovil(resultSet.getString(PERSONAL.TELEFONO_MOVIL));
             dato.setMunicipio(resultSet.getString(PERSONAL.MUNICIPIO));
             dato.setPais(resultSet.getString(PERSONAL.PAIS));
             dato.setCiudad(resultSet.getString(PERSONAL.CIUDAD));
             dato.setLugarNac(resultSet.getString(PERSONAL.LUGAR_NAC));
-            dato.setDocumentoIdentidad(resultSet.getLong(PERSONAL.DOCUMENTO_IDENTIDAD));
+            dato.setDocumentoIdentidad(resultSet.getString(PERSONAL.DOCUMENTO_IDENTIDAD));
             dato.setEstado(resultSet.getString(PERSONAL.ESTADO));
             personal_list.add(dato);
         }
@@ -1887,7 +1889,7 @@ public class UtilsDB {
 
         try (Connection conexion = getThinConnection();
                 CallableStatement cst = conexion.prepareCall("{? = call PKG_ORDENES_TRABAJO.insert_orden_trabajo_enc(?,?,"
-                        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
+                        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
 
             conexion.setAutoCommit(false);
             cst.registerOutParameter(1, Types.INTEGER);
@@ -1910,13 +1912,14 @@ public class UtilsDB {
                 cst.setString(17, enc.getFechaPedido());
                 cst.setString(18, enc.getPermite_pieza_reemplazo());
                 cst.setString(19, enc.getIdMecanico());
+                 cst.setString(20, enc.getIdSupervisor());
             }
-            cst.registerOutParameter(20, Types.VARCHAR);
+            cst.registerOutParameter(21, Types.VARCHAR);
 
             conexion.commit();
 
             cst.execute();
-            idDocumento = cst.getString(20);
+            idDocumento = cst.getString(21);
             insertedRows = cst.getInt(1);
 
         } catch (Exception ex) {

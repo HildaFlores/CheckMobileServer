@@ -44,12 +44,17 @@ public class UsuarioServicios {
     }
 
     public static JsonResponse<Personal> queryUsuarioadmin(JsonObject jsonObject) throws SQLException {
+        String user = null;
+        String password = null;
+        String userFormated = null;
+        String passwordFormated = null;
 
-        String user = jsonObject.get(Constantes.JSON_USARIO_ADMIN).getAsString();
-        String password = jsonObject.get(Constantes.JSON_CLAVE_USUARIO_ADMIN).getAsString();
-
-        String userFormated = "'" + user + "'";
-        String passwordFormated = "'" + password + "'";
+        if (jsonObject != null) {
+            user = jsonObject.get(Constantes.JSON_USARIO_ADMIN).getAsString();
+            password = jsonObject.get(Constantes.JSON_CLAVE_USUARIO_ADMIN).getAsString();
+            userFormated = "'" + user + "'";
+            passwordFormated = "'" + password + "'";
+        }
 
         SqlStatement sqlStatement = new SqlStatement();
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
@@ -68,14 +73,11 @@ public class UsuarioServicios {
         for (Object currentUsuario : objetos) {
             Personal per = (Personal) currentUsuario;
             usuario.add(per);
+        }
 
+        if (!usuario.isEmpty()) {
+            conectarNuevamente(user, password);
         }
-        
-        if (!usuario.isEmpty())
-        {
-           conectarNuevamente(user, password);
-        }
-        
 
         JsonResponse<Personal> response = new JsonResponse<>();
         response.setData(usuario);
@@ -83,17 +85,90 @@ public class UsuarioServicios {
         response.setMessage("Successful.");
 
         return response;
-   
+
     }
 
+    public static JsonResponse<Personal> queryPersonal() throws SQLException {
+
+        SqlStatement sqlStatement = new SqlStatement();
+        sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
+        sqlStatement.setProjection("*");
+        sqlStatement.setTable(CheckMobileTables.PERSONAL.TABLE_NAME);
+        String argument = "WHERE " + CheckMobileTables.PERSONAL.ESTADO + " =  'A' AND "
+                + CheckMobileTables.PERSONAL.ID_EMPRESA + " = " + Constantes.ID_EMPRESA;
+
+        sqlStatement.setArguments(argument);
+        sqlStatement.setOrderBy(null);
+        // System.out.print(sqlStatement);
+
+        List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.PERSONAL);
+
+        List<Personal> usuario = new ArrayList<>();
+        for (Object currentUsuario : objetos) {
+            Personal per = (Personal) currentUsuario;
+            usuario.add(per);
+        }
+
+        JsonResponse<Personal> response = new JsonResponse<>();
+        response.setData(usuario);
+        response.setRows(usuario.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+    
+     public static JsonResponse<Personal> queryValidacionClave(JsonObject jsonObject) throws SQLException {
+        String user = null;
+        String password = null;
+        String userFormated = null;
+        String passwordFormated = null;
+
+        if (jsonObject != null) {
+            user = jsonObject.get(Constantes.JSON_USARIO_ADMIN).getAsString();
+            password = jsonObject.get(Constantes.JSON_CLAVE_USUARIO_ADMIN).getAsString();
+            userFormated = "'" + user + "'";
+            passwordFormated = "'" + password + "'";
+        }
+
+        SqlStatement sqlStatement = new SqlStatement();
+        sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
+        sqlStatement.setProjection("*");
+        sqlStatement.setTable(CheckMobileTables.PERSONAL.TABLE_NAME);
+        String argument = " WHERE " + CheckMobileTables.PERSONAL.USUARIO + " = " + userFormated
+                + " AND " + CheckMobileTables.PERSONAL.CLAVE + " = " + passwordFormated;
+
+        sqlStatement.setArguments(argument);
+        sqlStatement.setOrderBy(null);
+        // System.out.print(sqlStatement);
+
+        List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.PERSONAL);
+
+        List<Personal> usuario = new ArrayList<>();
+        for (Object currentUsuario : objetos) {
+            Personal per = (Personal) currentUsuario;
+            usuario.add(per);
+        }
+
+
+        JsonResponse<Personal> response = new JsonResponse<>();
+        response.setData(usuario);
+        response.setRows(usuario.size());
+        response.setMessage("Successful.");
+
+        return response;
+
+    }
+
+    
     private static void conectarNuevamente(String user, String password) {
-        
+
         Utils.log("Cargando...");
         boolean setUpStatus = Utils.setUpConfigParameters(user, password);
 
         if (!setUpStatus) {
             System.out.println("No se pudo ejecutar la configuracion.");
-            
+
         }
 
         Utils.log("Setting up database connection...");
@@ -111,16 +186,16 @@ public class UsuarioServicios {
             });
 
             Utils.log("API up and running.");
-           
+
         } else {
             Utils.log("Connection with the database could not be established.");
-            
+
         }
-        
+
     }
 
     private static boolean setConnection() {
- 
+
         return conexion.getConnection() != null;
     }
 
@@ -145,6 +220,7 @@ public class UsuarioServicios {
         setProductoServiciosRutas();  //
         setRepVentasRutas(); //
         setTablaDgiiRutas(); /**/
+
         setVehiculoRutas(); //
         setTraccionRutas(); //
         setCombustibleRutas(); //

@@ -13,18 +13,18 @@ public class Personal  implements java.io.Serializable {
      private String id;
      private String nombres;
      private String apellidos;
-     private Date fechaNac;
+     private String fechaNac;
      private String lugarNac;
      private String estadoCivil;
-     private long documentoIdentidad;
+     private String documentoIdentidad;
      private String sexo;
      private String telefono;
      private String direccionEmail;
      private String telefonoMovil;
      private String estado;
-     private Date fechaInsercion;
+     private String fechaInsercion;
      private String usuarioInsercion;
-     private Date fechaActualizacion;
+     private String fechaActualizacion;
      private String usuarioActualizacion;
      private String usuario;
      private String idUbicacion;
@@ -41,44 +41,6 @@ public class Personal  implements java.io.Serializable {
     }
 
 	
-    public Personal(String id, String nombres, String apellidos, String estadoCivil, long documentoIdentidad, String sexo, String estado, Date fechaInsercion, String usuarioInsercion) {
-        this.id = id;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.estadoCivil = estadoCivil;
-        this.documentoIdentidad = documentoIdentidad;
-        this.sexo = sexo;
-        this.estado = estado;
-        this.fechaInsercion = fechaInsercion;
-        this.usuarioInsercion = usuarioInsercion;
-    }
-    public Personal(String id, String nombres, String apellidos, Date fechaNac, String lugarNac, String estadoCivil, long documentoIdentidad, String sexo, String telefono, String direccionEmail, String telefonoMovil, String estado, Date fechaInsercion, String usuarioInsercion, Date fechaActualizacion, String usuarioActualizacion, String usuario, String idUbicacion, Long trOrigen, String pais, String ciudad, String municipio, String sector, String calle, String edificio) {
-       this.id = id;
-       this.nombres = nombres;
-       this.apellidos = apellidos;
-       this.fechaNac = fechaNac;
-       this.lugarNac = lugarNac;
-       this.estadoCivil = estadoCivil;
-       this.documentoIdentidad = documentoIdentidad;
-       this.sexo = sexo;
-       this.telefono = telefono;
-       this.direccionEmail = direccionEmail;
-       this.telefonoMovil = telefonoMovil;
-       this.estado = estado;
-       this.fechaInsercion = fechaInsercion;
-       this.usuarioInsercion = usuarioInsercion;
-       this.fechaActualizacion = fechaActualizacion;
-       this.usuarioActualizacion = usuarioActualizacion;
-       this.usuario = usuario;
-       this.idUbicacion = idUbicacion;
-       this.trOrigen = trOrigen;
-       this.pais = pais;
-       this.ciudad = ciudad;
-       this.municipio = municipio;
-       this.sector = sector;
-       this.calle = calle;
-       this.edificio = edificio;
-    }
    
     public String getId() {
         return this.id;
@@ -101,11 +63,11 @@ public class Personal  implements java.io.Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    public Date getfechaNac() {
+    public String getfechaNac() {
         return this.fechaNac;
     }
     
-    public void setfechaNac(Date fechaNac) {
+    public void setfechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
     public String getLugarNac() {
@@ -122,11 +84,11 @@ public class Personal  implements java.io.Serializable {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-    public long getDocumentoIdentidad() {
+    public String getDocumentoIdentidad() {
         return this.documentoIdentidad;
     }
     
-    public void setDocumentoIdentidad(long documentoIdentidad) {
+    public void setDocumentoIdentidad(String documentoIdentidad) {
         this.documentoIdentidad = documentoIdentidad;
     }
     public String getSexo() {
@@ -164,11 +126,11 @@ public class Personal  implements java.io.Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public Date getFechaInsercion() {
+    public String getFechaInsercion() {
         return this.fechaInsercion;
     }
     
-    public void setFechaInsercion(Date fechaInsercion) {
+    public void setFechaInsercion(String fechaInsercion) {
         this.fechaInsercion = fechaInsercion;
     }
     public String getUsuarioInsercion() {
@@ -178,11 +140,11 @@ public class Personal  implements java.io.Serializable {
     public void setUsuarioInsercion(String usuarioInsercion) {
         this.usuarioInsercion = usuarioInsercion;
     }
-    public Date getFechaActualizacion() {
+    public String getFechaActualizacion() {
         return this.fechaActualizacion;
     }
     
-    public void setFechaActualizacion(Date fechaActualizacion) {
+    public void setFechaActualizacion(String fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
     }
     public String getUsuarioActualizacion() {

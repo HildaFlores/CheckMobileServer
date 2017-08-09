@@ -107,7 +107,6 @@ public class VehiculoServicios {
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy("V." + CheckMobileTables.VEHICULO.ID_VEHICULO);
 
-       //  System.out.print(sqlStatement);
         List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.VEHICULO);
         List<Vehiculo> veh = new ArrayList<>();
         for (Object currentVehiculo : objetos) {

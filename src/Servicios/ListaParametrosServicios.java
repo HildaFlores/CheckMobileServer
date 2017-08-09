@@ -125,6 +125,7 @@ public class ListaParametrosServicios {
      
       
           p = idLista.split(",");
+          if(p.length >=3){
           parametroFormated = "'" + p[0] + "', '" + p[1] + "','" + p[2] + "','" + p[3] + "'" + ",'" + p[4] + "'";
          // System.out.println(parametroFormated);
          
@@ -132,7 +133,13 @@ public class ListaParametrosServicios {
                 + " AND " + CheckMobileTables.LISTA_PARAMETROS_DET.ESTADO + " = " + "'A'" + " AND "
                 + CheckMobileTables.LISTA_PARAMETROS_DET.ID_LISTA + " in( " + parametroFormated + ") ";
      
-        
+          }else
+          {
+                argumentos = " WHERE " + CheckMobileTables.LISTA_PARAMETROS_DET.ID_EMPRESA + " = " + Constantes.ID_EMPRESA
+                + " AND " + CheckMobileTables.LISTA_PARAMETROS_DET.ESTADO + " = " + "'A'" + " AND "
+                + CheckMobileTables.LISTA_PARAMETROS_DET.ID_LISTA + " in( " + p[0] + ") ";
+     
+          }
 
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
         sqlStatement.setProjection("*");

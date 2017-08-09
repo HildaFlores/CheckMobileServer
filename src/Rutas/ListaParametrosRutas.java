@@ -24,7 +24,7 @@ public class ListaParametrosRutas {
 
         post("/parametrosEnc", ((request, response) -> queryListaParametrosEnc(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
         post("/parametrosDet", ((request, response) -> queryListaParametrosDet(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
-  post("/parametrosDetOtros", ((request, response) -> queryListaParametrosDetOtros(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
+        post("/parametrosDetOtros", ((request, response) -> queryListaParametrosDetOtros(JsonUtils.fromJson(request.body()))), JsonUtils::toJson);
       
     }
 
