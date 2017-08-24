@@ -84,37 +84,42 @@ public class InspeccionVehServicios {
 
         }
         if (idInspeccion != null) {
-            argumentos = "WHERE i.id_empresa = v.id_empresa\n"
+            argumentos = " WHERE i.id_empresa = v.id_empresa\n"
                     + " AND v.id_vehiculo       = i.id_vehiculo\n"
                     + " AND v.id_marca          = a.id_marca\n"
                     + " AND v.id_modelo         = b.id_modelo\n"
                     + " AND v.id_estilo         = es.id_estilo\n"
                     + " AND c.id_cliente        = v.id_cliente\n"
                     + " AND i.id_empresa        = '3'\n"
-                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO"
+                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO\n"
+                    + " AND p.usuario = i.usuario_insercion\n"
+                     +" AND upper(p.usuario) = upper(i.usuario_insercion) "
                     + " AND i.estado = 'A'" + " AND i.id_inspeccion = " + idInspeccion;
         } else {
-            argumentos = "WHERE i.id_empresa = v.id_empresa\n"
+            argumentos = " WHERE i.id_empresa = v.id_empresa\n"
                     + " AND v.id_vehiculo       = i.id_vehiculo\n"
                     + " AND v.id_marca          = a.id_marca\n"
                     + " AND v.id_modelo         = b.id_modelo\n"
                     + " AND v.id_estilo         = es.id_estilo\n"
                     + " AND c.id_cliente        = v.id_cliente\n"
-                    + " AND c.id_empresa        = i.id_empresa\n" 
+                    + " AND c.id_empresa        = i.id_empresa\n"
                     + " AND i.id_empresa        = '3'\n"
                     + " AND i.estado_inspeccion = 'P'\n"
-                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO"
+                    + " AND v.ID_TIPO_VEHICULO = t.ID_TIPO_VEHICULO\n"
+                    + " AND upper(p.usuario) = upper(i.usuario_insercion) "
                     + " AND i.estado = 'A'";
         }
-         // System.out.println(sqlStatement);
+       
         sqlStatement.setOperation(SqlOperation.SELECT);
-        sqlStatement.setTable("inspeccion_vehiculo i ,\n"
+        
+        sqlStatement.setTable(" inspeccion_vehiculo i ,\n"
                 + "  cliente c,\n"
                 + "  vehiculo v,\n"
                 + "  vehiculo_marca a,\n"
                 + "  vehiculo_modelo b,\n"
                 + "  vehiculo_estilo es,\n"
-                + "  tipo_vehiculo t");
+                + "  tipo_vehiculo t \n,"
+                + " personal p\n");
 
         sqlStatement.setProjection("i.*, Trunc(sysdate - i.fecha_inspeccion) as dias,\n"
                 + "  decode(c.tipo_entidad, 'E', c.nombre_empresa, c.nombres\n"
@@ -126,11 +131,13 @@ public class InspeccionVehServicios {
                 + "  || ' '\n"
                 + "  || es.descripcion AS nombre_vehiculo, \n"
                 + "  t.descripcion as tipo_veh, c.id_condicion, "
-                + "v.placa, v.color, nvl(c.DOCUMENTO_IDENTIDAD, c.RNC) as identidad,  c.TELEFONO, c.TELEFONO_MOVIL as celular");
+                + " v.placa, v.color,"
+                + " nvl(c.DOCUMENTO_IDENTIDAD, c.RNC) as identidad,"
+                + "  c.TELEFONO, c.TELEFONO_MOVIL as celular , p.nombres || ' ' || p.apellidos as usuario_insercion\n");
 
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(" To_number(" + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + ")");
-       //  System.out.println(sqlStatement);
+         // System.out.println(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
         List<InspeccionVehiculo> inspeccion = new ArrayList<>();
         for (Object currentInspeccion : objects) {
@@ -196,7 +203,7 @@ public class InspeccionVehServicios {
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy("To_number( i." + CheckMobileTables.INSPECCION_VEHICULO.ID_INSPECCION + ")");
 
-       // System.out.println(sqlStatement);
+        // System.out.println(sqlStatement);
         //System.out.print(sqlStatement);
         List<Object> objects = UtilsDB.executeQuery(sqlStatement, ObjetosDB.INSPECCION_VEHICULO);
         List<InspeccionVehiculo> inspeccion = new ArrayList<>();
@@ -269,7 +276,7 @@ public class InspeccionVehServicios {
             InspeccionVehiculo insp = (InspeccionVehiculo) currentInspeccion;
             inspeccion.add(insp);
         }
-     //  System.out.println(sqlStatement);
+        //  System.out.println(sqlStatement);
         JsonResponse<InspeccionVehiculo> response = new JsonResponse<>();
         response.setData(inspeccion);
         response.setRows(inspeccion.size());

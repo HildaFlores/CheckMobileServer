@@ -641,6 +641,7 @@ public class UtilsDB {
             ins.setColor(resultSet.getString("color"));
             ins.setDocIdentidad(resultSet.getString("identidad"));
             ins.setDias(resultSet.getInt("dias"));
+            ins.setUsuarioInsercion(resultSet.getString(INSPECCION_VEHICULO.USUARIO_INSERCION));
 
             inspeccion_list.add(ins);
         }
