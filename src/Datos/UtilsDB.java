@@ -14,21 +14,23 @@ import Datos.CheckMobileTables.*;
 import Util.Constantes;
 import Util.Utils;
 import static Util.conexion.getThinConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //Queries//
 public class UtilsDB {
 
-    public static String idVehiculo, idCliente, idInspeccion, idMarca, idModelo, idEstilo, idDocumento;
+    public static String idVehiculo, idCliente, idInspeccion, idMarca, idModelo, idEstilo, idDocumento, idMecanico;
     public static int contador = 0;
-
-    
 
     public static List<Object> executeQuery(SqlStatement sql, ObjetosDB dbObject) throws SQLException {
         List<Object> objetos = null;
 
-        try (Connection conexion = getConnection();
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql.toString());
-                ResultSet resultSet = preparedStatement.executeQuery()) {
+        try {
+            Connection conexion = getConnection();
+            PreparedStatement preparedStatement = null;
+            preparedStatement = conexion.prepareStatement(sql.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
             switch (dbObject) {
                 case TIPO_TELEFONO: {
                     objetos = getTipo_telefono(resultSet);
@@ -182,6 +184,10 @@ public class UtilsDB {
                     break;
 
                 }
+                case PROVINCIA: {
+                    objetos = getProvincia(resultSet);
+                    break;
+                }
 
             }
 
@@ -194,17 +200,23 @@ public class UtilsDB {
     public static List<Object> executeQuery2(SqlStatement sql, ObjetosDB dbObject) throws SQLException {
         List<Object> objetos = null;
 
-        try (Connection conexion = getConnection();
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql.toString());
-                ResultSet resultSet = preparedStatement.executeQuery()) {
+      try {
+            Connection conexion = getConnection();
+            PreparedStatement preparedStatement = null;
+            preparedStatement = conexion.prepareStatement(sql.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
             switch (dbObject) {
                 case INSPECCION_VEHICULO: {
                     objetos = getInspeccion_vehiculo2(resultSet);
                     break;
                 }
-                case PEDIDO_ENC:
-                {
+                case PEDIDO_ENC: {
                     objetos = getPedido_enc2(resultSet);
+                    break;
+                }
+                case CTE_REPRESENTANTE_VEN:
+                {
+                    getMecanico(resultSet);
                     break;
                 }
             }
@@ -213,7 +225,7 @@ public class UtilsDB {
         }
         return objetos;
     }
-    
+
     public static int executeInsert(Object object, ObjetosDB dbObject) {
         int registrosInsertados = 0;
         switch (dbObject) {
@@ -635,7 +647,7 @@ public class UtilsDB {
         return inspeccion_list;
 
     }
-    
+
     private static List<Object> getInspeccion_vehiculo2(ResultSet resultSet) throws SQLException {
         List<Object> inspeccion_list = new ArrayList<>();
         while (resultSet.next()) {
@@ -656,7 +668,7 @@ public class UtilsDB {
             ins.setFechaInspeccion(resultSet.getString(INSPECCION_VEHICULO.FECHA_INSERCION));
             ins.setSerieGomas(resultSet.getString(INSPECCION_VEHICULO.SERIE_GOMAS));
             ins.setDias(resultSet.getInt("dias"));
-           
+
             inspeccion_list.add(ins);
         }
         return inspeccion_list;
@@ -675,6 +687,7 @@ public class UtilsDB {
             doc.setNota(resultSet.getString(VEHICULO_DOCUMENTO.NOTA));
             doc.setId_documento(resultSet.getString(VEHICULO_DOCUMENTO.ID_DOCUMENTO));
             doc.setId_lado(resultSet.getString(VEHICULO_DOCUMENTO.ID_LADO));
+            doc.setRutaDocumentoWeb(resultSet.getString(VEHICULO_DOCUMENTO.RUTA_DOCUMENTO_WEB));
             doc_list.add(doc);
         }
         return doc_list;
@@ -787,8 +800,8 @@ public class UtilsDB {
         }
         return pedEnc_list;
     }
-    
-     private static List<Object> getPedido_enc2(ResultSet resultSet) throws SQLException {
+
+    private static List<Object> getPedido_enc2(ResultSet resultSet) throws SQLException {
         List<Object> pedEnc_list = new ArrayList<>();
         while (resultSet.next()) {
             PedidoEnc dato = new PedidoEnc();
@@ -952,7 +965,7 @@ public class UtilsDB {
         try (Connection conexion = getThinConnection();
                 CallableStatement cst = conexion.prepareCall("{? = call PKG_CLIENTE.inserta_cliente(?,?,"
                         + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
-                        + "?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
+                        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");) {
 
             conexion.setAutoCommit(false);
             cst.registerOutParameter(1, Types.INTEGER);
@@ -997,12 +1010,13 @@ public class UtilsDB {
                 cst.setString(38, cte.getLugar_nac());
                 cst.setString(39, cte.getCalDescDef());
                 cst.setString(40, cte.getIdEntidad());
+                cst.setString(41, cte.getTipoEntidad());
             }
-            cst.registerOutParameter(41, Types.VARCHAR);
+            cst.registerOutParameter(42, Types.VARCHAR);
             cst.execute();
             conexion.commit();
 
-            idCliente = cst.getString(41);
+            idCliente = cst.getString(42);
             insertedRows = cst.getInt(1);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1797,7 +1811,7 @@ public class UtilsDB {
         List<VehiculoDocumento> vehiculo = (List<VehiculoDocumento>) object;
         try (Connection conexion = getThinConnection();
                 CallableStatement cst = conexion.prepareCall("{call PKG_VEHICULOS.insert_veh_documento(?,?,"
-                        + "?,?,?,?,?)}");) {
+                        + "?,?,?,?,?,?)}");) {
             conexion.setAutoCommit(false);
 
             for (VehiculoDocumento veh : vehiculo) {
@@ -1808,6 +1822,7 @@ public class UtilsDB {
                 cst.setString(5, veh.getNota());
                 cst.setString(6, "IV");
                 cst.setString(7, veh.getId_lado());
+                cst.setString(8, veh.getRutaDocumentoWeb());
                 cst.addBatch();
             }
             insertedRows = cst.executeBatch();
@@ -1912,7 +1927,7 @@ public class UtilsDB {
                 cst.setString(17, enc.getFechaPedido());
                 cst.setString(18, enc.getPermite_pieza_reemplazo());
                 cst.setString(19, enc.getIdMecanico());
-                 cst.setString(20, enc.getIdSupervisor());
+                cst.setString(20, enc.getIdSupervisor());
             }
             cst.registerOutParameter(21, Types.VARCHAR);
 
@@ -2044,4 +2059,24 @@ public class UtilsDB {
 
     }
 
+    private static List<Object> getProvincia(ResultSet resultSet) throws SQLException {
+        List<Object> provincia = new ArrayList<>();
+        while (resultSet.next()) {
+            Provincia prov = new Provincia();
+            prov.setIdProvincia(resultSet.getString(PROVINCIA.ID_PROVINCIA));
+            prov.setDescProvincia(resultSet.getString(PROVINCIA.DESC_PROVINCIA));
+            provincia.add(prov);
+
+        }
+        return provincia;
+    }
+
+    
+     private static void getMecanico(ResultSet resultSet) throws SQLException {
+       
+        while (resultSet.next()) {
+           idMecanico = resultSet.getString(CTE_REPRESENTANTE_VEN.ID_REPRESENTANTE);     
+        }
+      
+    }
 }

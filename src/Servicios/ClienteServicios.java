@@ -27,51 +27,46 @@ public class ClienteServicios {
         String documentoIdentidad = null;
         String argumentos = null;
         String idFormated, docIdentidadFormated;
-        
-        
+
         SqlStatement sqlStatement = new SqlStatement();
         if (jsonObject != null) {
-           // System.out.print(jsonObject.toString());
+            // System.out.print(jsonObject.toString());
             idCliente = jsonObject.has(Constantes.JSON_KEY_CLIENT) ? jsonObject.get(Constantes.JSON_KEY_CLIENT).getAsString() : null;
             documentoIdentidad = jsonObject.has("documento_identidad") ? jsonObject.get("documento_identidad").getAsString() : null;
-           }
-        
-        
-        if (idCliente == null && documentoIdentidad == null ) {
+        }
+
+        if (idCliente == null && documentoIdentidad == null) {
             argumentos = " WHERE " + " C." + CheckMobileTables.CLIENTE.ESTADO + " = " + " 'A' " + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + "P." + CheckMobileTables.CONDICION_PAGO.ID_EMPRESA + " AND "
                     + "P." + CheckMobileTables.CONDICION_PAGO.ID_CONDICION + " = " + " C." + CheckMobileTables.CLIENTE.ID_CONDICION;
-        } else if (documentoIdentidad == null && idCliente != null){
-            idFormated  = "'" + idCliente + "'"; 
+        } else if (documentoIdentidad == null && idCliente != null) {
+            idFormated = "'" + idCliente + "'";
             argumentos = " WHERE " + " C." + CheckMobileTables.CLIENTE.ESTADO + " = " + " 'A' " + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " AND "
                     + "C." + CheckMobileTables.CLIENTE.ID_CLIENTE + " = " + idFormated + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + "P." + CheckMobileTables.CONDICION_PAGO.ID_EMPRESA + " AND "
-                    + "P." + CheckMobileTables.CONDICION_PAGO.ID_CONDICION + " = " 
+                    + "P." + CheckMobileTables.CONDICION_PAGO.ID_CONDICION + " = "
                     + " C." + CheckMobileTables.CLIENTE.ID_CONDICION;
 
-        }
-        else if (documentoIdentidad != null && idCliente == null){        
+        } else if (documentoIdentidad != null && idCliente == null) {
             docIdentidadFormated = "'" + documentoIdentidad + "'";
             argumentos = " WHERE " + " C." + CheckMobileTables.CLIENTE.ESTADO + " = " + " 'A' " + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " AND "
                     + " C." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + "P." + CheckMobileTables.CONDICION_PAGO.ID_EMPRESA + " AND "
-                    + "P." + CheckMobileTables.CONDICION_PAGO.ID_CONDICION + " = " 
-                    + " C." + CheckMobileTables.CLIENTE.ID_CONDICION + " AND " 
-                    + "(C."  + CheckMobileTables.CLIENTE.DOCUMENTO_IDENTIDAD + " = " + docIdentidadFormated
-                    + " OR C." +    CheckMobileTables.CLIENTE.RNC + " = " +  docIdentidadFormated + ")";
-        }  
-        
+                    + "P." + CheckMobileTables.CONDICION_PAGO.ID_CONDICION + " = "
+                    + " C." + CheckMobileTables.CLIENTE.ID_CONDICION + " AND "
+                    + "(C." + CheckMobileTables.CLIENTE.DOCUMENTO_IDENTIDAD + " = " + docIdentidadFormated
+                    + " OR C." + CheckMobileTables.CLIENTE.RNC + " = " + docIdentidadFormated + ")";
+        }
+
         sqlStatement.setOperation(OperacionSql.SqlOperation.SELECT);
         sqlStatement.setTable(CheckMobileTables.CLIENTE.TABLE_NAME + " C ," + CheckMobileTables.CONDICION_PAGO.TABLE_NAME + " P ");
         sqlStatement.setProjection("C.*, P.descripcion as desc_con");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy("C." + CheckMobileTables.CLIENTE.ID_CLIENTE);
-        
-        
-       //System.out.println(sqlStatement);
 
+       //System.out.println(sqlStatement);
         // System.out.print(sqlStatement);
         List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.CLIENTE);
         List<Cliente> clientes = new ArrayList<>();
@@ -93,10 +88,10 @@ public class ClienteServicios {
 
     public static JsonResponse<ClienteDirecciones> queryClienteDireccion(JsonObject jsonObject) throws SQLException {
         String idCliente = jsonObject.has(Constantes.JSON_KEY_CLIENT) ? jsonObject.get(Constantes.JSON_KEY_CLIENT).getAsString() : null;
-String idFormated;
+        String idFormated;
         String argumentos;
         SqlStatement sqlStatement = new SqlStatement();
-         idFormated  = "'" + idCliente + "'"; 
+        idFormated = "'" + idCliente + "'";
         argumentos = "WHERE " + "D." + CheckMobileTables.CLIENTE.ESTADO + " = " + " 'A' " + " AND "
                 + "D." + CheckMobileTables.CLIENTE.ID_EMPRESA + " = " + Constantes.ID_EMPRESA + " AND "
                 + "C." + CheckMobileTables.CLIENTE.ID_CLIENTE + " = " + "D." + CheckMobileTables.CLIENTE_DIRECCIONES.ID_CLIENTE + " AND "
@@ -180,24 +175,23 @@ String idFormated;
      * @return The numbers of rows inserted.
      */
     public static String insertCliente(String jsonObject) {
-       //System.out.println(jsonObject);
+        //System.out.println(jsonObject);
         Type type = new TypeToken<ArrayList<Cliente>>() {
         }.getType();
-        
+
         ArrayList<Cliente> cte = (ArrayList<Cliente>) JsonUtils.fromJson(jsonObject, type);
         int registroInsertado = UtilsDB.executeInsert(cte, ObjetosDB.CLIENTE);
         String codigoServidor = registroInsertado > 0 ? Constantes.RESPONSE_CODE_OK : Constantes.RESPONSE_CODE_ERROR;
         //JsonResponse respuesta = new JsonResponse<>();
         //respuesta.setRows(registroInsertado);
 
-       /* if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
-            respuesta.setMessage("Listo. " + " Registros insertados:" + registroInsertado);
-        } else {
-            respuesta.setResponseCode(codigoServidor);
-            respuesta.setMessage("Ha ocurrido un error");
-        }*/
-
-        return codigoServidor + ", " +  UtilsDB.idCliente;
+        /* if (codigoServidor.equals(Constantes.RESPONSE_CODE_OK)) {
+         respuesta.setMessage("Listo. " + " Registros insertados:" + registroInsertado);
+         } else {
+         respuesta.setResponseCode(codigoServidor);
+         respuesta.setMessage("Ha ocurrido un error");
+         }*/
+        return codigoServidor + "," + UtilsDB.idCliente;
     }
 
 }

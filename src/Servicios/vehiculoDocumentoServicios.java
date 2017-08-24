@@ -55,7 +55,7 @@ public class vehiculoDocumentoServicios {
         sqlStatement.setProjection("*");
         sqlStatement.setArguments(argumentos);
         sqlStatement.setOrderBy(CheckMobileTables.VEHICULO_DOCUMENTO.SECUENCIA);
-           // System.out.println(sqlStatement);
+        //System.out.println(sqlStatement);
         List<Object> objetos = UtilsDB.executeQuery(sqlStatement, ObjetosDB.VEHICULO_DOCUMENTO);
         List<VehiculoDocumento> veh = new ArrayList<>();
         for (Object currentDocumento : objetos) {

@@ -27,7 +27,7 @@ public class PedidoEncServicios {
         String idDocumento = null;
         String tipoTrans = null;
         String argumentos = null;
-        String formated;
+        String formated = null;
 
         if (jsonObject != null) {
             idDocumento = jsonObject.has(Constantes.JSON_KEY_PEDIDO_ID) ? jsonObject.get(Constantes.JSON_KEY_PEDIDO_ID).getAsString() : null;

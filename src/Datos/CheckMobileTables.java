@@ -81,7 +81,7 @@ public class CheckMobileTables {
         public static final String FECHA_NACIMIENTO = "fecha_nac";
         public static final String CIUDAD_PROVINCIA = "ciudad_provincia";
         public static final String DIRECCION = "linea1";
-        public static final String PROXIMOA= "linea2";
+        public static final String PROXIMOA = "linea2";
         public static final String TELEFONO = "telefono";
         public static final String CELULAR = "telefono_movil";
         public static final String CORREO = "direccion_email";
@@ -429,6 +429,7 @@ public class CheckMobileTables {
         public static final String USUARIO_ACT = "usuario_actualizacion";
         public static final String ESTADO = "estado";
         public static final String ID_LADO = "id_lado";
+        public static final String RUTA_DOCUMENTO_WEB = "ruta_documento_web";
     }
 
     public static final class PEDIDO_PRODUCTO {
@@ -596,10 +597,20 @@ public class CheckMobileTables {
     }
 
     public static final class PAIS {
+
         public static final String TABLE_NAME = "pais";
         public static final String ID_PAIS = "id_pais";
         public static final String DESC_PAIS = "desc_pais";
         public static final String NACIONALIDAD = "nacionalidad";
         public static final String ESTADO = "estado";
+    }
+
+    public static final class PROVINCIA {
+
+        public static final String TABLE_NAME = "provincias";
+        public static final String ID_PROVINCIA = "id_provincia";
+        public static final String DESC_PROVINCIA = "desc_provincia" ;
+         public static final String ESTADO = "estado";      
+
     }
 }

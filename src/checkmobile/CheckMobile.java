@@ -15,6 +15,7 @@ import static Rutas.PedidoDetRutas.setPedidoDetRutas;
 import static Rutas.PedidoEncRutas.setPedidoEncRutas;
 import static Rutas.ProductoPrecioRutas.setProductoPrecioRutas;
 import static Rutas.ProductoServicioRutas.setProductoServiciosRutas;
+import static Rutas.ProvinciaRutas.setProvinciaRutas;
 import static Rutas.RepVentasRutas.setRepVentasRutas;
 import static Rutas.TablaDgiiRutas.setTablaDgiiRutas;
 import static Rutas.TipoComprobanteRutas.setTipoComprobanteRutas;
@@ -131,7 +132,7 @@ public class CheckMobile {
         setPais(); //
         setTipoTransRutas(); //
         setVehiculoDocRutas();//
-
+        setProvinciaRutas(); //
     }
 
 }

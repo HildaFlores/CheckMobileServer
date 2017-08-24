@@ -24,6 +24,7 @@ public class VehiculoDocumento  implements java.io.Serializable {
      private String usuarioActualizacion;
      private BigDecimal trOrigen;
      private String id_lado;
+     private String rutaDocumentoWeb;
 
     public VehiculoDocumento() {
     }
@@ -149,8 +150,19 @@ public class VehiculoDocumento  implements java.io.Serializable {
         this.id_lado = id_lado;
     }
 
+    /**
+     * @return the rutaDocumentoWeb
+     */
+    public String getRutaDocumentoWeb() {
+        return rutaDocumentoWeb;
+    }
 
-
+    /**
+     * @param rutaDocumentoWeb the rutaDocumentoWeb to set
+     */
+    public void setRutaDocumentoWeb(String rutaDocumentoWeb) {
+        this.rutaDocumentoWeb = rutaDocumentoWeb;
+    }
 
 }
 
